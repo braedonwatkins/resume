@@ -986,6 +986,18 @@ video {
   --tw-bg-opacity: 0.9;
 }
 
+.bg-opacity-30 {
+  --tw-bg-opacity: 0.3;
+}
+
+.bg-opacity-0 {
+  --tw-bg-opacity: 0;
+}
+
+.bg-opacity-70 {
+  --tw-bg-opacity: 0.7;
+}
+
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
