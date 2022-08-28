@@ -800,6 +800,10 @@ video {
   flex-wrap: wrap-reverse;
 }
 
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
 .items-end {
   align-items: flex-end;
 }
@@ -830,6 +834,10 @@ video {
 
 .gap-8 {
   gap: 2rem;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .border {
