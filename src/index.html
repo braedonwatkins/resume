@@ -5,26 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/dist/output.css" rel="stylesheet">
 </head>
-  <body>
+  <body class="h-screen flex flex-col">
     <!-- a sticky navbar with anchors to sections of the page -->
-    <nav>
+    <nav class="sticky top-0 flex gap-8 border-2 py-2 px-5 border-pink-500">
+      <a>Home</a>
+      <a>About Me</a>
+      <a>Projects</a>
+      <a>Experience</a>
     </nav>
     
     <main>
       <!-- an about me section -->
-      <section class="aboutMe">
-        <figure/>
-        <details/>
+      <section class="aboutMe flex border-2 border-blue-500">
+        <figure>hello</figure>
+        <details>blah blah</details><br><br><br><br>
       </section>
 
+
       <!-- projects section -->
-      <section class="projects">
+      <section class="projects border-2 border-red-500">
       </section>
 
       <!-- work experience -->
-      <section class="experience">
+      <section class="experience border-2 border-green-500">
       </section>
-      
+
     </main>
   </body>
 </html>
