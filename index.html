@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./output.css" rel="stylesheet">
 </head>
-  <body class="bg-stone-50">
+  <body class="bg-stone-50 font-serif">
     <!-- a sticky navbar with anchors to sections of the page -->
     <nav class="sticky top-0 flex gap-8 py-2 px-5 bg-stone-50 backdrop-blur-sm bg-opacity-50 z-50">
       <a href="#">Home</a>
@@ -21,16 +21,25 @@
       <section>
         <h1 class="text-2xl font-bold">Braedon Watkins</h1>
         <h2 class="text-xl pt-1 pb-1">Senior of Computer Science at University of Central Florida</h2>
-        <h2 class="text-lg pt-1 pb-2">Curious Generalist & Wholesome Nerd</h2>
-        <section class="flex flex-wrap justify-center">
-          <figure class="basis-44 shrink-0 mr-10">
-            <img src="./me.png" alt="a photo of a handsome and employable young man wearing formal clothes in a tasteful nature backdrop">
-            <figcaption class="text-center opacity-50 text-sm">fig. 1 an employable young man </figcaption>
-          </figure>
-          <div class="grow basis-8/12">
-            I am passionate about helping others by using the technical skills I've acquired. Some of my interests are game development, cybersecurity, robotics, and web development.<br>
-            Before I aspired to a career in software, I studied astrophysics. I enjoyed learning about the mathematics of the universe and the mysteries it unveils. I also enjoy learning about other topics like animation, music composition, and math. I hope to channel my curiosity and breadth to continue growing in software!<br>
-            To wind down, I like playing games and reading. Some of my favorite game fixations are Fire Emblem, Legend of Zelda, and Dungeons & Dragons. Books I'm reading are Queen of Nothing by Holly Black, I'll Give You the Sun by Jandy Nelson, and Sapiens by Yuval Noah Harari. Give me some game and book recommendations!
+        <section>
+          <div class="flex flex-wrap justify-center">
+            <figure class="basis-44 shrink-0 mr-10">
+              <img src="./me.png" alt="a photo of a handsome and employable young man wearing formal clothes in a tasteful nature backdrop">
+              <figcaption class="text-center opacity-50 text-sm">fig. 1 an employable young man </figcaption>
+            </figure>
+            <div class="grow basis-8/12">
+              I am passionate about helping others by using the technical skills I've acquired. Some of my interests are game development, cybersecurity, robotics, and web development.<br>
+              Before I aspired to a career in software, I studied astrophysics. I enjoyed learning about the mathematics of the universe and the mysteries it unveils. I also enjoy learning about other topics like animation, music composition, and math. I hope to channel my curiosity and breadth to continue growing in software!<br>
+              To wind down, I like playing games and reading. Some of my favorite game fixations are Fire Emblem, Legend of Zelda, and Dungeons & Dragons. Books I'm reading are Queen of Nothing by Holly Black, I'll Give You the Sun by Jandy Nelson, and Sapiens by Yuval Noah Harari. Give me some game and book recommendations!
+            </div>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="grid grid-cols-3 p-2 gap-2">
+              <button class="rounded-md py-2 border-2 border-blue-500">Email</button>
+              <button class="rounded-md py-2 border-2 border-red-500">GitHub</button>
+              <button class="rounded-md py-2 border-2 border-green-500">LinkedIn</button>
+            </div>
+            <div></div>
           </div>
         </section>
       </section>
@@ -51,7 +60,6 @@
       <div id="projects" class="m-10"></div>
       <section>
         <h1 class="text-2xl font-bold">Projects</h1>
-        <p>Dump Div</p>
         <details>EMURR  | PM | Next
           Orlando, FL
           05/2023
