@@ -1,57 +1,99 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./output.css" rel="stylesheet">
-  <script src="scripts.js" defer></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./output.css" rel="stylesheet" />
+    <script src="scripts.js" defer></script>
+  </head>
   <body class="bg-stone-50 font-serif">
     <!-- a sticky navbar with anchors to sections of the page -->
-    <nav class="sticky top-0 flex gap-8 py-2 px-5 bg-stone-50 backdrop-blur-sm bg-opacity-50 z-50">
+    <nav
+      class="max-w-full sticky top-0 flex flex-auto justify-around py-2 px-5 bg-stone-50 backdrop-blur-sm bg-opacity-50 z-50"
+    >
       <a href="#">Home</a>
       <a href="#aboutMe">About Me</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
+      <!-- <a href="#experience">Experience</a> -->
     </nav>
-    
-    <main class="flex flex-col px-48">
+
+    <main class="flex flex-col px-10 md:px-48 content-center">
       <!-- an about me section -->
-      <div id="aboutMe" class="m-10"></div>
+      <div id="aboutMe" class="m-2"></div>
       <section>
         <h1 class="text-4xl font-bold">Braedon Watkins</h1>
-        <h2 class="text-2xl pt-1 pb-1">Senior of Computer Science at University of Central Florida</h2>
+        <h2 class="text-2xl pt-1 pb-1">
+          Senior in Computer Science at University of Central Florida
+        </h2>
         <section>
           <div class="flex flex-wrap justify-center">
             <figure class="basis-44 shrink-0 mr-10">
-              <img src="./me.png" alt="a photo of a handsome and employable young man wearing formal clothes in a tasteful nature backdrop. when hovered he is in the same photoshoot but making a silly face." onmouseover="hover(this);" onmouseout="unhover(this);">
-              <figcaption class="text-center opacity-50 text-sm">an employable young man </figcaption>
+              <img
+                src="./me.png"
+                alt="a photo of a handsome and employable young man wearing formal clothes in a tasteful nature backdrop. when hovered he is in the same photoshoot but making a silly face."
+                onmouseover="hover(this);"
+                onmouseout="unhover(this);"
+              />
+              <figcaption class="text-center opacity-50 text-sm">
+                an employable young man
+              </figcaption>
             </figure>
             <div class="grow basis-8/12">
-              I am passionate about helping others by using the technical skills I've acquired. Some of my interests are game development, cybersecurity, robotics, and web development.<br>
-              Before I aspired to a career in software, I studied astrophysics. I enjoyed learning about the mathematics of the universe and the mysteries it unveils. I also enjoy learning about other topics like animation, music composition, and math. I hope to channel my curiosity and breadth to continue growing in software!<br>
-              To wind down, I like playing games and reading. Some of my favorite game fixations are Fire Emblem, Legend of Zelda, and Dungeons & Dragons. Books I'm reading are Queen of Nothing by Holly Black, I'll Give You the Sun by Jandy Nelson, and Sapiens by Yuval Noah Harari. I'd love to hear your game and book recommendations!
+              I am passionate about helping others by using the technical skills
+              I've acquired. Some of my interests are game development,
+              cybersecurity, robotics, and web development.<br />
+              Before I aspired to a career in software, I studied astrophysics.
+              I enjoyed learning about the mathematics of the universe and the
+              mysteries it unveils. I also enjoy learning about other topics
+              like animation, music composition, and math. I hope to channel my
+              curiosity and breadth to continue growing in software!<br />
+              To wind down, I like playing games and reading. Some of my
+              favorite game fixations are Fire Emblem, Legend of Zelda, and
+              Dungeons & Dragons. Books I'm reading are Queen of Nothing by
+              Holly Black, I'll Give You the Sun by Jandy Nelson, and Sapiens by
+              Yuval Noah Harari. I'd love to hear your game and book
+              recommendations!
 
               <div class="grid grid-cols-1">
-                <div class="flex items-center justify-center gap-10 py-4 px-40">
-                  <a class="flex-1" href="mailto:watkins.braedon@gmail.com" target="_blank">
-                    <button class="hover:bg-pink-700 hover:translate-y-1 hover:border-0 bg-pink-500 text-stone-100 border-pink-600 border-b-4 w-full rounded-md py-2 inline-flex items-center justify-center gap-2">
+                <div
+                  class="flex flex-col sm:flex-row justify-center gap-2 md:gap-10 py-4 mx-10 md:mx-0 md:px-40 lg:px-40"
+                >
+                  <a
+                    class="flex-1"
+                    href="mailto:watkins.braedon@gmail.com"
+                    target="_blank"
+                  >
+                    <button
+                      class="shrink-0 hover:bg-pink-700 hover:translate-y-1 hover:border-0 bg-pink-500 text-stone-100 border-pink-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2"
+                    >
                       <span>Email</span>
-                      <img class="w-4 h-4" src="./mail.svg">
+                      <img class="w-4 h-4" src="./mail.svg" />
                     </button>
                   </a>
-                  <a class="flex-1" href="https://github.com/braedonwatkins" target="_blank">
-                    <button class="hover:bg-purple-700 hover:translate-y-1 hover:border-0 bg-purple-500 text-stone-100 border-purple-600 border-b-4 w-full rounded-md py-2 inline-flex items-center justify-center gap-2">
+                  <a
+                    class="flex-1"
+                    href="https://github.com/braedonwatkins"
+                    target="_blank"
+                  >
+                    <button
+                      class="hover:bg-purple-700 hover:translate-y-1 hover:border-0 bg-purple-500 text-stone-100 border-purple-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2"
+                    >
                       <span>GitHub</span>
-                      <img class="w-4 h-4" src="./github.svg">
+                      <img class="w-4 h-4" src="./github.svg" />
                     </button>
                   </a>
-                
-                  <a class="flex-1" href="https://www.linkedin.com/in/braedonwatkins/" target="_blank">
-                    <button class="hover:bg-blue-700 hover:translate-y-1 hover:border-0 bg-blue-500 text-stone-100 border-blue-600 border-b-4 w-full rounded-md py-2 inline-flex items-center justify-center gap-2">
+
+                  <a
+                    class="flex-1"
+                    href="https://www.linkedin.com/in/braedonwatkins/"
+                    target="_blank"
+                  >
+                    <button
+                      class="hover:bg-blue-700 hover:translate-y-1 hover:border-0 bg-blue-500 text-stone-100 border-blue-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2"
+                    >
                       <span>LinkedIn</span>
-                      <img class= "w-4 h-4" src="./linkedin.svg">
+                      <img class="w-4 h-4" src="./linkedin.svg" />
                     </button>
                   </a>
                 </div>
@@ -67,9 +109,12 @@
         <h1 class="text-2xl font-bold">Technical Skills</h1>
         <!-- couldnt get grid working, working on custom padding -->
         <div class="px-5">
-          <strong>Proficient Languages:</strong> TypeScript, JavaScript, Java, C, CSS, HTML, Bash, Lua, C# <br>
-          <strong>Familiar Languages:</strong> SQL, Python, C++, Haskell, Erlang <br>
-          <strong>Technologies, Tools, & Frameworks:</strong> Git, GitHub, Tailwind, Unity, Heroku, LAMP, MERN, Next, Prisma, NGINX <br>
+          <strong>Proficient Languages:</strong> TypeScript, JavaScript, Java,
+          C, CSS, HTML, Bash, Lua, C# <br />
+          <strong>Familiar Languages:</strong> SQL, Python, C++, Haskell, Erlang
+          <br />
+          <strong>Technologies, Tools, & Frameworks:</strong> Git, GitHub,
+          Tailwind, Unity, Heroku, LAMP, MERN, Next, Prisma, NGINX <br />
         </div>
       </section>
 
@@ -78,43 +123,57 @@
       <!-- NEEDS BETTER FORMATTING FOR ROLES & FRAMEWORKS -->
       <div id="projects" class="m-10"></div>
 
-
       <section>
         <h1 class="text-2xl font-bold">Projects</h1>
 
         <div class="grid grid-cols-1">
           <div class="projComponent pl-5 pr-10 py-2">
-              <div class="text-center grid grid-cols-2 gap-3">
-                <div class="grid grid-cols-3 auto-cols-auto items-center">
-                  <div class="text-left font-bold">EMURR Capstone</div>
-                  <div class="text-sm">PM</div>
-                  <div class="text-sm">Next JS</div>
-                </div>
-                <!-- favicon right here -->
-                <div class="text-right">07/2022 - 10/2022</div>
+            <div class="text-center grid grid-cols-2 gap-3">
+              <div class="grid grid-cols-3 auto-cols-auto items-center">
+                <div class="text-left font-bold">EMURR Capstone</div>
+                <div class="text-sm visibility: hidden sm:block">PM</div>
+                <div class="text-sm visibility: hidden sm:block">Next JS</div>
               </div>
-              <div></div>
-              <ul class="pl-5 list-disc">
-                <li>Capstone project bridging the gap between digital and physical interpretive sites</li>
-                <li>Coordinating development for tour site builder web application</li>
-                <li>Researching and developing web server hosted on Raspberry Pi</li>
-              </ul>
+              <!-- favicon right here -->
+              <div class="text-right">07/2022 - 10/2022</div>
+            </div>
+            <div></div>
+            <ul class="pl-5 list-disc">
+              <li>
+                Capstone project bridging the gap between digital and physical
+                interpretive sites
+              </li>
+              <li>
+                Coordinating development for tour site builder web application
+              </li>
+              <li>
+                Researching and developing web server hosted on Raspberry Pi
+              </li>
+            </ul>
           </div>
           <div class="projComponent pl-5 pr-10 py-2">
-              <div class="text-center grid grid-cols-2 gap-3">
-                <!-- favicon right here -->
-                <div class="grid grid-cols-3 auto-cols-auto items-center">
-                  <div class="text-left font-bold">Etch-A-Sketch</div>
-                  <div class="text-sm"></div>
-                  <div class="text-sm"></div>
-                </div>
-                <div class="text-right">05/2022</div>
+            <div class="text-center grid grid-cols-2 gap-3">
+              <!-- favicon right here -->
+              <div class="grid grid-cols-3 auto-cols-auto items-center">
+                <div class="text-left font-bold">Etch-A-Sketch</div>
+                <div class="text-sm visibility: hidden sm:block"></div>
+                <div class="text-sm visibility: hidden sm:block"></div>
               </div>
-              <div></div>
+              <div class="text-right">05/2022</div>
+            </div>
+            <div></div>
             <ul class="pl-5 list-disc">
-              <li>A classic toy reimagined: a weekend project for frontend review</li>
-              <li>Reinforced knowledge and implementation of JavaScript and DOM Manipulation</li>
-              <li>Managed scope with optional features to deliver a functional site in the time allotted</li>
+              <li>
+                A classic toy reimagined: a weekend project for frontend review
+              </li>
+              <li>
+                Reinforced knowledge and implementation of JavaScript and DOM
+                Manipulation
+              </li>
+              <li>
+                Managed scope with optional features to deliver a functional
+                site in the time allotted
+              </li>
             </ul>
           </div>
           <div class="projComponent pl-5 pr-10 py-2">
@@ -122,15 +181,24 @@
               <!-- favicon right here -->
               <div class="grid grid-cols-3 auto-cols-auto items-center">
                 <div class="text-left font-bold">Grass, Water, Fire</div>
-                <div class="text-sm"></div>
-                <div class="text-sm"></div>
+                <div class="text-sm visibility: hidden sm:block"></div>
+                <div class="text-sm visibility: hidden sm:block"></div>
               </div>
               <div class="text-right">05/2022</div>
             </div>
             <ul class="pl-5 list-disc">
-              <li>Rock, Paper, Scissors with a twist: a weekend project for frontend review</li>
-              <li>Reinforced knowledge and implementation of JavaScript and CSS patterns</li>
-              <li>Functioned independently to deliver a clean, user-friendly interface</li>
+              <li>
+                Rock, Paper, Scissors with a twist: a weekend project for
+                frontend review
+              </li>
+              <li>
+                Reinforced knowledge and implementation of JavaScript and CSS
+                patterns
+              </li>
+              <li>
+                Functioned independently to deliver a clean, user-friendly
+                interface
+              </li>
             </ul>
           </div>
           <div class="projComponent pl-5 pr-10 py-2">
@@ -138,15 +206,23 @@
               <!-- favicon right here -->
               <div class="grid grid-cols-3 auto-cols-auto items-center">
                 <div class="text-left font-bold">Gamers Social Media</div>
-                <div class="text-sm">PM</div>
-                <div class="text-sm">MERN</div>
+                <div class="text-sm visibility: hidden sm:block">PM</div>
+                <div class="text-sm visibility: hidden sm:block">MERN</div>
               </div>
               <div class="text-right">10/2021 - 11/2021</div>
             </div>
             <ul class="pl-5 list-disc">
-              <li>Social media app and mobile companion to connect users by video game interests</li>
-              <li>Collaborated with Frontend, API, and Backend teams to solve urgent problems</li>
-              <li>Curated scrum meetings to build solutions together as a team</li>
+              <li>
+                Social media app and mobile companion to connect users by video
+                game interests
+              </li>
+              <li>
+                Collaborated with Frontend, API, and Backend teams to solve
+                urgent problems
+              </li>
+              <li>
+                Curated scrum meetings to build solutions together as a team
+              </li>
             </ul>
           </div>
           <div class="projComponent pl-5 pr-10 py-2">
@@ -154,15 +230,25 @@
               <!-- favicon right here -->
               <div class="grid grid-cols-3 auto-cols-auto items-center">
                 <div class="text-left font-bold">Khantact Manager</div>
-                <div class="text-sm">PM & Frontend</div>
-                <div class="text-sm">LAMP</div>
+                <div class="text-sm visibility: hidden sm:block">
+                  PM & Frontend
+                </div>
+                <div class="text-sm visibility: hidden sm:block">LAMP</div>
               </div>
               <div class="text-right">08/2021 - 09/2021</div>
             </div>
             <ul class="pl-5 list-disc">
-              <li>An online rolodex with registration, log in, and CRUD operations</li>
-              <li>Discussed with Frontend, API, and Backend teams to solve urgent problems</li>
-              <li>Maintained CSS animations and stylization of webpage with Frontend team</li>
+              <li>
+                An online rolodex with registration, log in, and CRUD operations
+              </li>
+              <li>
+                Discussed with Frontend, API, and Backend teams to solve urgent
+                problems
+              </li>
+              <li>
+                Maintained CSS animations and stylization of webpage with
+                Frontend team
+              </li>
             </ul>
           </div>
         </div>
@@ -170,59 +256,62 @@
 
       <!-- work experience -->
       <div id="experience" class="m-10"></div>
-      <section>
+      <!-- <section>
         <h1 class="text-2xl font-bold">Experience</h1>
-        
+
         <div class="grid grid-cols-1">
           <div class="jobComponent pl-5 pr-10 py-2">
             <div class="text-left grid grid-cols-3 gap-1">
               <div class="text-left font-bold whitespace-nowrap">Target</div>
-              <!-- favicon right here -->
+              
               <div class="text-sm">Fulfillment Specialist</div>
               <div class="text-right">01/2022 - Present</div>
             </div>
           </div>
 
           <div class="jobComponent pl-5 pr-10 py-2">
-              <div class="text-left grid grid-cols-3 gap-1">
-                <div class="text-left font-bold">Walmart</div>
-                <!-- favicon right here -->
-                <div class="text-left text-sm">Team Lead</div>
-                <div class="text-right">08/2020 - 12/2021</div>
-              </div>
+            <div class="text-left grid grid-cols-3 gap-1">
+              <div class="text-left font-bold">Walmart</div>
+              
+              <div class="text-left text-sm">Team Lead</div>
+              <div class="text-right">08/2020 - 12/2021</div>
+            </div>
           </div>
 
           <div class="jobComponent pl-5 pr-10 py-2">
-              <div class="text-left grid grid-cols-3 gap-1">
-                <div class="font-bold">Seminole State College of Florida</div>
-                <!-- favicon right here -->
-                <div class="text-sm">Tutor (Temp)</div>
-                <div class="text-right">01/2020 - 08/2020</div>
-              </div>
+            <div class="text-left grid grid-cols-3 gap-1">
+              <div class="font-bold">Seminole State College of Florida</div>
+              
+              <div class="text-sm">Tutor (Temp)</div>
+              <div class="text-right">01/2020 - 08/2020</div>
+            </div>
           </div>
 
           <div class="jobComponent pl-5 pr-10 py-2">
-              <div class="text-left grid grid-cols-3 gap-1">
-                <div class="text-left font-bold whitespace-nowrap">CapTel Service Specialists</div>
-                <!-- favicon right here -->
-                <div class="text-sm">Captioning Assistant</div>
-                <div class="text-right">01/2018 - 01/2020</div>
+            <div class="text-left grid grid-cols-3 gap-1">
+              <div class="text-left font-bold whitespace-nowrap">
+                CapTel Service Specialists
               </div>
+              
+              <div class="text-sm">Captioning Assistant</div>
+              <div class="text-right">01/2018 - 01/2020</div>
+            </div>
           </div>
 
           <div class="jobComponent pl-5 pr-10 py-2">
-              <div class="text-left grid grid-cols-3 gap-1">
-                <div class="font-bold whitespace-nowrap">McDonald's</div>
-                <!-- favicon right here -->
-                <div class="text-sm">Crew Trainer</div>
-                <div class="text-right">01/2015 - 01/2018</div>
-              </div>
-          </div>     
+            <div class="text-left grid grid-cols-3 gap-1">
+              <div class="font-bold whitespace-nowrap">McDonald's</div>
+              
+              <div class="text-sm">Crew Trainer</div>
+              <div class="text-right">01/2015 - 01/2018</div>
+            </div>
+          </div>
         </div>
-      </section>
+      </section> -->
     </main>
     <footer class="h-10">
       <div></div>
     </footer>
   </body>
 </html>
+
