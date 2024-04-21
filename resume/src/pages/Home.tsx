@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { debugOutline } from "../utils/debugOutline";
+import { Showcase } from "../components/Showcase";
+import { ProjectList } from "../components/ProjectList";
+import { Profile } from "../components/Profile";
 
 const DEBUG_MODE = import.meta.env.VITE_DEBUG === "true";
 
@@ -15,15 +18,11 @@ const Home = () => {
       <Navbar />
       <main className="flex justify-between h-full">
         <div className="left-main flex flex-[3_1_0%] flex-col justify-center">
-          <div className="flex flex-[2_1_0%] items-center justify-center">
-            SHOWCASE
-          </div>
-          <div className="flex flex-[3_1_0%] items-center justify-center">
-            PROJECT LIST
-          </div>
+          <Showcase />
+          <ProjectList />
         </div>
         <div className="right-main flex flex-[2_1_0%] flex-col items-center justify-center">
-          <div>PROFILE</div>
+          <Profile />
         </div>
       </main>
     </body>
