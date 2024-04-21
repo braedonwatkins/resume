@@ -11,24 +11,22 @@ const Home = () => {
     }
   }, []); // Empty dependency array ensures this runs once on mount.
   return (
-    <div className="h-screen w-screen">
+    <body className="flex flex-col h-screen w-screen">
       <Navbar />
-      <body className="flex flex-1 flex-col h-full">
-        <main className="flex flex-1 justify-between h-full">
-          <div className="left-main flex flex-col items-stretch justify-center flex-1">
-            <div className="flex flex-1 items-center justify-center h-full">
-              SHOWCASE
-            </div>
-            <div className="flex flex-1 items-center justify-center h-full">
-              PROJECT LIST
-            </div>
+      <main className="flex justify-between h-full">
+        <div className="left-main flex flex-col justify-center flex-1">
+          <div className="flex flex-1 items-center justify-center">
+            SHOWCASE
           </div>
-          <div className="right-main flex flex-col items-center justify-center flex-1">
-            <div>PROFILE</div>
+          <div className="flex flex-1 items-center justify-center">
+            PROJECT LIST
           </div>
-        </main>
-      </body>
-    </div>
+        </div>
+        <div className="right-main flex flex-col items-center justify-center flex-1">
+          <div>PROFILE</div>
+        </div>
+      </main>
+    </body>
   );
 };
 
