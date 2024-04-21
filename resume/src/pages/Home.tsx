@@ -1,21 +1,13 @@
-import { Link } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 
 const Home = () => {
   return (
     <div>
-      <header className="flex justify-between p-4">
-        <ul className="flex gap-8 pl-10">
-          <Link to="/home">Home</Link>
-          <Link to="/blog">Bloog</Link>
-        </ul>
-        <ul className="flex gap-8 pl-10">
-          <Link to="/about-me">About Me</Link>
-        </ul>
-      </header>
+      <Navbar />
       <body>
         <div>
           <div>SHOWCASE</div>
-          <div>PROJECT ulST</div>
+          <div>PROJECT List</div>
         </div>
         <div>PROFILE</div>
       </body>
