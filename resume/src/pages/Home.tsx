@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <div>
-      <header>NAVBAR</header>
+      <header className="bg-slate-500">NAVBAR</header>
       <body>
         <div>
           <div>SHOWCASE</div>
