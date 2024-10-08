@@ -1,17 +1,17 @@
 <script>
-  import { onMount } from 'svelte';
-//  import { debugOutline } from '../utils/debugOutline';
-//  import Showcase from '../components/Showcase.svelte';
-//  import ProjectList from '../components/ProjectList.svelte';
-//  import Profile from '../components/Profile.svelte';
+    import {DEBUG_MODE} from '$env/static/private';
+    import { onMount } from 'svelte';
+    //  import { debugOutline } from '../utils/debugOutline';
+    //  import Showcase from '../components/Showcase.svelte';
+    //  import ProjectList from '../components/ProjectList.svelte';
+    //  import Profile from '../components/Profile.svelte';
 
-  const DEBUG_MODE = import.meta.env.VITE_DEBUG === 'true';
+    onMount(() => {
+            if (DEBUG_MODE) {
+            // debugOutline();
+            }
+            });
 
-  onMount(() => {
-    if (DEBUG_MODE) {
-      // debugOutline();
-    }
-  });
 </script>
 
 <main class="flex justify-between h-full">
