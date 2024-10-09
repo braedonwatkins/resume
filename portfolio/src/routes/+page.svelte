@@ -1,29 +1,10 @@
 <script>
-    import {DEBUG_MODE} from '$env/static/private';
-    import { onMount } from 'svelte';
-    //  import { debugOutline } from '../utils/debugOutline';
-    //  import Showcase from '../components/Showcase.svelte';
-    //  import ProjectList from '../components/ProjectList.svelte';
-    //  import Profile from '../components/Profile.svelte';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
-    onMount(() => {
-            if (DEBUG_MODE) {
-            // debugOutline();
-            }
-            });
-
+	onMount(() => {
+		goto('/home');
+	});
 </script>
 
-<main class="flex justify-between h-full">
-  <div class="left-main flex flex-[3_1_0%] flex-col justify-center">
-    <!-- <Showcase /> -->
-    <!-- <ProjectList /> -->
-  </div>
-  <div class="right-main flex flex-[2_1_0%] flex-col items-center justify-center">
-    <!-- <Profile /> -->
-  </div>
-</main>
-
-<style>
-</style>
-
+<div>temp</div>
