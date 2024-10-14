@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
-
 	type Node = {
 		id: string;
 		x: number;
@@ -33,8 +31,8 @@
 	function generateRandomEdges(count: number): Edge[] {
 		const edges: Edge[] = [];
 		for (let i = 0; i < count; i++) {
-			const leftOrMiddle = Math.random() < 0.5;
-			if (leftOrMiddle) {
+			const isLeft = Math.random() < 0.5;
+			if (isLeft) {
 				edges.push({
 					source: leftNodes[Math.floor(Math.random() * leftNodes.length)],
 					target: middleNodes[Math.floor(Math.random() * middleNodes.length)]
@@ -58,8 +56,8 @@
 	const middleX = 300;
 	const rightX = 590;
 
-	let selectedMiddleNodes = writable(new Set<string>());
-	let rankedRightNodes = writable<RankedNode[]>([]);
+	let selectedMiddleNodes = new Set<string>();
+	let rankedRightNodes: RankedNode[] = [];
 	let searchTerm = '';
 	let zoomLevel = 1;
 
@@ -92,14 +90,14 @@
 	}
 
 	function toggleMiddleNode(nodeId: string) {
-		selectedMiddleNodes.update((set) => {
-			if (set.has(nodeId)) {
-				set.delete(nodeId);
-			} else {
-				set.add(nodeId);
-			}
-			return set;
-		});
+		const set = new Set<string>(selectedMiddleNodes);
+		if (set.has(nodeId)) {
+			set.delete(nodeId);
+		} else {
+			set.add(nodeId);
+		}
+		selectedMiddleNodes = set;
+
 		updateRankedRightNodes();
 	}
 
@@ -107,7 +105,7 @@
 		const rightNodeCounts = new Map<string, number>();
 
 		edges.forEach((edge) => {
-			if ($selectedMiddleNodes.has(edge.source)) {
+			if (selectedMiddleNodes.has(edge.source)) {
 				const rightNode = rightNodes.find((node) => node === edge.target);
 				if (rightNode) {
 					rightNodeCounts.set(rightNode, (rightNodeCounts.get(rightNode) || 0) + 1);
@@ -119,7 +117,7 @@
 			.map(([id, count]) => ({ id, count }))
 			.sort((a, b) => b.count - a.count);
 
-		rankedRightNodes.set(ranked);
+		rankedRightNodes = ranked;
 	}
 
 	function handleZoom(event: WheelEvent) {
@@ -152,7 +150,7 @@
 					y1={source.y}
 					x2={target.x}
 					y2={target.y}
-					stroke={$selectedMiddleNodes.has(source.id) || $selectedMiddleNodes.has(target.id)
+					stroke={selectedMiddleNodes.has(source.id) || selectedMiddleNodes.has(target.id)
 						? 'red'
 						: '#ccc'}
 					stroke-width="0.5"
@@ -163,8 +161,8 @@
 		{#each allNodes as node}
 			<g
 				role="button"
-				tabindex="0"
-				aria-pressed={$selectedMiddleNodes.has(node.id)}
+				tabindex={node.x === middleX ? 0 : 1}
+				aria-pressed={selectedMiddleNodes.has(node.id)}
 				on:click={() => node.x === middleX && toggleMiddleNode(node.id)}
 				on:keydown={(event) => node.x === middleX && handleNodeKeydown(event, node.id)}
 			>
@@ -173,7 +171,7 @@
 					cy={node.y}
 					r={nodeRadius}
 					fill={getNodeColor(node)}
-					stroke={$selectedMiddleNodes.has(node.id) || $rankedRightNodes[0]?.id === node.id
+					stroke={selectedMiddleNodes.has(node.id) || rankedRightNodes[0]?.id === node.id
 						? 'red'
 						: 'none'}
 					stroke-width="1"
@@ -189,13 +187,13 @@
 <div class="info">
 	<h3>Selected middle nodes:</h3>
 	<div class="selected-nodes">
-		{#each [...$selectedMiddleNodes] as nodeId}
+		{#each [...selectedMiddleNodes] as nodeId}
 			<span class="node-tag">{nodeId}</span>
 		{/each}
 	</div>
 	<h3>Ranked Right Nodes (Top 10):</h3>
 	<ol>
-		{#each $rankedRightNodes.slice(0, 10) as node}
+		{#each rankedRightNodes.slice(0, 10) as node}
 			<li>{node.id} (Count: {node.count})</li>
 		{/each}
 	</ol>
