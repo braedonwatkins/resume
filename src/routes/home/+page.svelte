@@ -73,7 +73,7 @@
 			x: leftX,
 			y: (index + 1) * (height / (leftNodes.length + 1))
 		})),
-		...middleNodes.map((id, index) => ({
+		...filteredMiddleNodes.map((id, index) => ({
 			id,
 			x: middleX,
 			y: (index + 1) * (height / (middleNodes.length + 1))
