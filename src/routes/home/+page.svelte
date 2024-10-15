@@ -1,53 +1,15 @@
 <script lang="ts">
-	type Node = {
-		id: string;
-		x: number;
-		y: number;
-	};
+	import type { Edge } from './Edge';
+	import type { Node } from './Node';
+	import type { RankedNode } from './RankedNode';
+	import generateRandomEdges from './generateEdges';
+	import generateNodes from './generateNodes';
 
-	type Edge = {
-		source: string;
-		target: string;
-	};
-
-	type RankedNode = {
-		id: string;
-		count: number;
-	};
-
-	const numLeftNodes = 15;
-	const numMiddleNodes = 25;
-	const numRightNodes = 20;
-	const numEdges = 100;
-
-	function generateNodes(prefix: string, count: number): string[] {
-		return Array.from({ length: count }, (_, i) => `${prefix}${i + 1}`);
-	}
-
-	export let leftNodes: string[] = generateNodes('L', numLeftNodes);
-	export let middleNodes: string[] = generateNodes('M', numMiddleNodes);
-	export let rightNodes: string[] = generateNodes('R', numRightNodes);
-
-	function generateRandomEdges(count: number): Edge[] {
-		const edges: Edge[] = [];
-		for (let i = 0; i < count; i++) {
-			const isLeft = Math.random() < 0.5;
-			if (isLeft) {
-				edges.push({
-					source: leftNodes[Math.floor(Math.random() * leftNodes.length)],
-					target: middleNodes[Math.floor(Math.random() * middleNodes.length)]
-				});
-			} else {
-				edges.push({
-					source: middleNodes[Math.floor(Math.random() * middleNodes.length)],
-					target: rightNodes[Math.floor(Math.random() * rightNodes.length)]
-				});
-			}
-		}
-		return edges;
-	}
-
-	export let edges: Edge[] = generateRandomEdges(numEdges);
+	//TODO: replace random node and edge generation with an upload / interactive node creator
+	export let leftNodes: string[] = generateNodes('L', 15);
+	export let middleNodes: string[] = generateNodes('M', 25);
+	export let rightNodes: string[] = generateNodes('R', 20);
+	export let edges: Edge[] = generateRandomEdges(100, leftNodes, middleNodes, rightNodes);
 
 	const width = 600;
 	const height = 400;
@@ -86,19 +48,8 @@
 	function getNodeColor(node: Node): string {
 		if (node.x === leftX) return 'lightblue';
 		if (node.x === middleX) return 'lightgreen';
-		return 'lightpink';
-	}
-
-	function toggleMiddleNode(nodeId: string) {
-		const set = new Set<string>(selectedMiddleNodes);
-		if (set.has(nodeId)) {
-			set.delete(nodeId);
-		} else {
-			set.add(nodeId);
-		}
-		selectedMiddleNodes = set;
-
-		updateRankedRightNodes();
+		if (node.x == rightX) return 'lightpink';
+		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
 	}
 
 	function updateRankedRightNodes() {
@@ -120,6 +71,19 @@
 		rankedRightNodes = ranked;
 	}
 
+	function toggleMiddleNode(nodeId: string) {
+		const set = new Set<string>(selectedMiddleNodes);
+		if (set.has(nodeId)) {
+			set.delete(nodeId);
+		} else {
+			set.add(nodeId);
+		}
+		selectedMiddleNodes = set;
+
+		updateRankedRightNodes();
+	}
+
+	// NOTE: GRAPH EVENTS BELOW
 	function handleZoom(event: WheelEvent) {
 		event.preventDefault();
 		zoomLevel += event.deltaY * -0.001;
@@ -132,6 +96,20 @@
 			toggleMiddleNode(nodeId);
 		}
 	}
+
+	function handleDropdownSelect(event: Event) {
+		const { options } = event.target as HTMLSelectElement;
+		const selectedValues = Array.from(options)
+			.filter((option) => option.selected)
+			.map((option) => option.value);
+
+		console.log('Selected values changed:', selectedValues);
+
+		selectedMiddleNodes.clear();
+		for (const value of selectedValues) {
+			toggleMiddleNode(value);
+		}
+	}
 </script>
 
 <div class="controls">
@@ -139,49 +117,61 @@
 	<p>Zoom: {zoomLevel.toFixed(2)}x</p>
 </div>
 
-<div class="graph-container" on:wheel={handleZoom}>
-	<svg {width} {height} viewBox="0 0 {width} {height}" style="transform: scale({zoomLevel});">
-		{#each edges as edge}
-			{@const source = allNodes.find((node) => node.id === edge.source)}
-			{@const target = allNodes.find((node) => node.id === edge.target)}
-			{#if source && target}
-				<line
-					x1={source.x}
-					y1={source.y}
-					x2={target.x}
-					y2={target.y}
-					stroke={selectedMiddleNodes.has(source.id) || selectedMiddleNodes.has(target.id)
-						? 'red'
-						: '#ccc'}
-					stroke-width="0.5"
-				/>
-			{/if}
-		{/each}
+<div class="flex gap-10 justify-around">
+	<div class="graph-container" on:wheel={handleZoom}>
+		<svg {width} {height} viewBox="0 0 {width} {height}" style="transform: scale({zoomLevel});">
+			{#each edges as edge}
+				{@const source = allNodes.find((node) => node.id === edge.source)}
+				{@const target = allNodes.find((node) => node.id === edge.target)}
+				{#if source && target}
+					<line
+						x1={source.x}
+						y1={source.y}
+						x2={target.x}
+						y2={target.y}
+						stroke={selectedMiddleNodes.has(source.id) || selectedMiddleNodes.has(target.id)
+							? 'red'
+							: '#ccc'}
+						stroke-width="0.5"
+					/>
+				{/if}
+			{/each}
 
-		{#each allNodes as node}
-			<g
-				role="button"
-				tabindex={node.x === middleX ? 0 : 1}
-				aria-pressed={selectedMiddleNodes.has(node.id)}
-				on:click={() => node.x === middleX && toggleMiddleNode(node.id)}
-				on:keydown={(event) => node.x === middleX && handleNodeKeydown(event, node.id)}
-			>
-				<circle
-					cx={node.x}
-					cy={node.y}
-					r={nodeRadius}
-					fill={getNodeColor(node)}
-					stroke={selectedMiddleNodes.has(node.id) || rankedRightNodes[0]?.id === node.id
-						? 'red'
-						: 'none'}
-					stroke-width="1"
-				/>
-				<text x={node.x} y={node.y + nodeRadius + 10} font-size="8" text-anchor="middle"
-					>{node.id}</text
+			{#each allNodes as node}
+				<g
+					role="button"
+					tabindex={node.x === middleX ? 0 : 1}
+					aria-pressed={selectedMiddleNodes.has(node.id)}
+					on:click={() => node.x === middleX && toggleMiddleNode(node.id)}
+					on:keydown={(event) => node.x === middleX && handleNodeKeydown(event, node.id)}
 				>
-			</g>
-		{/each}
-	</svg>
+					<circle
+						cx={node.x}
+						cy={node.y}
+						r={nodeRadius}
+						fill={getNodeColor(node)}
+						stroke={selectedMiddleNodes.has(node.id) || rankedRightNodes[0]?.id === node.id
+							? 'red'
+							: 'none'}
+						stroke-width="1"
+					/>
+					<text x={node.x} y={node.y + nodeRadius + 10} font-size="8" text-anchor="middle"
+						>{node.id}</text
+					>
+				</g>
+			{/each}
+		</svg>
+	</div>
+
+	<div>
+		I am a <select on:change={handleDropdownSelect} multiple>
+			<option value="" disabled>Full-Stack Developer</option>
+			{#each middleNodes as node}
+				<option value={node}>{node}</option>
+			{/each}
+		</select>
+		building the future with <select></select>
+	</div>
 </div>
 
 <div class="info">
