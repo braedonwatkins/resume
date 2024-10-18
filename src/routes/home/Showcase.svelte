@@ -15,17 +15,12 @@
 	const height = 400;
 	const nodeRadius = 5;
 	const leftX = 10;
-	const middleX = 300;
-	const rightX = 590;
+	const middleX = 280;
+	const rightX = 525;
 
 	let selectedMiddleNodes = new Set<string>();
 	let rankedRightNodes: RankedNode[] = [];
-	let searchTerm = '';
 	let zoomLevel = 1;
-
-	$: filteredMiddleNodes = searchTerm
-		? middleNodes.filter((node) => node.toLowerCase().includes(searchTerm.toLowerCase()))
-		: middleNodes;
 
 	$: allNodes = [
 		...leftNodes.map((id, index) => ({
@@ -33,7 +28,7 @@
 			x: leftX,
 			y: (index + 1) * (height / (leftNodes.length + 1))
 		})),
-		...filteredMiddleNodes.map((id, index) => ({
+		...middleNodes.map((id, index) => ({
 			id,
 			x: middleX,
 			y: (index + 1) * (height / (middleNodes.length + 1))
@@ -112,12 +107,7 @@
 	}
 </script>
 
-<div class="flex flex-[2_1_0%] items-center justify-center gap-1">
-	<div class="controls">
-		<input bind:value={searchTerm} placeholder="Search middle nodes..." />
-		<p>Zoom: {zoomLevel.toFixed(2)}x</p>
-	</div>
-
+<div class="flex-col flex-[2_1_0%] items-center justify-center gap-1">
 	<div class="flex gap-10 justify-around">
 		<div class="graph-container" on:wheel={handleZoom}>
 			<svg {width} {height} viewBox="0 0 {width} {height}" style="transform: scale({zoomLevel});">

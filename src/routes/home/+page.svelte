@@ -9,7 +9,7 @@
 	});
 </script>
 
-<main class="flex justify-between h-screen">
+<main class="flex justify-between h-screen py-4 px-2">
 	<div class="left-main flex flex-[3_1_0%] flex-col justify-center">
 		<Showcase />
 		<ResumeBuilder />
