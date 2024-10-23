@@ -230,14 +230,15 @@
 		</div>
 	</div>
 
+	<!-- listing of selected nodes  -->
 	<div class="info">
-		<h3>Selected middle nodes:</h3>
+		<h3>Selected Skill Nodes:</h3>
 		<div class="selected-nodes">
 			{#each [...selectedSkillNodes] as nodeId}
 				<span class="node-tag">{nodeId}</span>
 			{/each}
 		</div>
-		<h3>Ranked Right Nodes (Top 10):</h3>
+		<h3>Ranked Bullet Nodes (Top 10):</h3>
 		<ol>
 			{#each rankedBulletNodes.slice(0, 10) as node}
 				<li>{node.id} (Count: {node.count})</li>
