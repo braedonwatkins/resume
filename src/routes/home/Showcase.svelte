@@ -6,60 +6,79 @@
 	import generateNodes from './generateNodes';
 
 	//TODO: replace random node and edge generation with an upload / interactive node creator
-	export let leftNodes: string[] = generateNodes('L', 15);
-	export let middleNodes: string[] = generateNodes('M', 25);
-	export let rightNodes: string[] = generateNodes('R', 20);
-	export let edges: Edge[] = generateRandomEdges(100, leftNodes, middleNodes, rightNodes);
+	export let jobNodes: string[] = generateNodes('J', 10);
+	export let skillNodes: string[] = generateNodes('S', 12);
+	export let bulletNodes: string[] = generateNodes('B', 17);
+	export let projectNodes: string[] = generateNodes('P', 5);
+	export let edges: Edge[] = generateRandomEdges(
+		100,
+		jobNodes,
+		skillNodes,
+		bulletNodes,
+		projectNodes
+	);
 
 	const width = 600;
 	const height = 400;
 	const nodeRadius = 5;
-	const leftX = 10;
-	const middleX = 280;
-	const rightX = 525;
+	const jobX = 10;
+	const skillX = 170;
+	const bulletX = 320;
+	const projectX = 470;
 
 	let selectedMiddleNodes = new Set<string>();
 	let rankedRightNodes: RankedNode[] = [];
+	let searchTerm = '';
 	let zoomLevel = 1;
 
+	$: filteredMiddleNodes = searchTerm
+		? skillNodes.filter((node) => node.toLowerCase().includes(searchTerm.toLowerCase()))
+		: skillNodes;
+
 	$: allNodes = [
-		...leftNodes.map((id, index) => ({
+		...jobNodes.map((id, index) => ({
 			id,
-			x: leftX,
-			y: (index + 1) * (height / (leftNodes.length + 1))
+			x: jobX,
+			y: (index + 1) * (height / (jobNodes.length + 1))
 		})),
-		...middleNodes.map((id, index) => ({
+		...filteredMiddleNodes.map((id, index) => ({
 			id,
-			x: middleX,
-			y: (index + 1) * (height / (middleNodes.length + 1))
+			x: skillX,
+			y: (index + 1) * (height / (skillNodes.length + 1))
 		})),
-		...rightNodes.map((id, index) => ({
+		...bulletNodes.map((id, index) => ({
 			id,
-			x: rightX,
-			y: (index + 1) * (height / (rightNodes.length + 1))
+			x: bulletX,
+			y: (index + 1) * (height / (bulletNodes.length + 1))
+		})),
+		...projectNodes.map((id, index) => ({
+			id,
+			x: projectX,
+			y: (index + 1) * (height / (projectNodes.length + 1))
 		}))
 	];
 
 	function getNodeColor(node: Node): string {
-		if (node.x === leftX) return 'lightblue';
-		if (node.x === middleX) return 'lightgreen';
-		if (node.x == rightX) return 'lightpink';
+		if (node.x === jobX) return 'lightblue';
+		if (node.x === skillX) return 'lightgreen';
+		if (node.x === bulletX) return 'lightpink';
+		if (node.x === projectX) return 'mediumpurple';
 		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
 	}
 
 	function updateRankedRightNodes() {
-		const rightNodeCounts = new Map<string, number>();
+		const bulletNodeCounts = new Map<string, number>();
 
 		edges.forEach((edge) => {
 			if (selectedMiddleNodes.has(edge.source)) {
-				const rightNode = rightNodes.find((node) => node === edge.target);
-				if (rightNode) {
-					rightNodeCounts.set(rightNode, (rightNodeCounts.get(rightNode) || 0) + 1);
+				const bulletNode = bulletNodes.find((node) => node === edge.target);
+				if (bulletNode) {
+					bulletNodeCounts.set(bulletNode, (bulletNodeCounts.get(bulletNode) || 0) + 1);
 				}
 			}
 		});
 
-		const ranked: RankedNode[] = Array.from(rightNodeCounts.entries())
+		const ranked: RankedNode[] = Array.from(bulletNodeCounts.entries())
 			.map(([id, count]) => ({ id, count }))
 			.sort((a, b) => b.count - a.count);
 
@@ -108,6 +127,11 @@
 </script>
 
 <div class="flex-col flex-[2_1_0%] items-center justify-center gap-1">
+	<div class="controls">
+		<input bind:value={searchTerm} placeholder="Search middle nodes..." />
+		<p>Zoom: {zoomLevel.toFixed(2)}x</p>
+	</div>
+
 	<div class="flex gap-10 justify-around">
 		<div class="graph-container" on:wheel={handleZoom}>
 			<svg {width} {height} viewBox="0 0 {width} {height}" style="transform: scale({zoomLevel});">
@@ -120,7 +144,9 @@
 							y1={source.y}
 							x2={target.x}
 							y2={target.y}
-							stroke={selectedMiddleNodes.has(source.id) || selectedMiddleNodes.has(target.id)
+							stroke={selectedMiddleNodes.has(source.id) ||
+							selectedMiddleNodes.has(target.id) ||
+							rankedRightNodes.some((node) => node.id === source.id)
 								? 'red'
 								: '#ccc'}
 							stroke-width="0.5"
@@ -131,10 +157,10 @@
 				{#each allNodes as node}
 					<g
 						role="button"
-						tabindex={node.x === middleX ? 0 : 1}
+						tabindex={node.x === skillX ? 0 : 1}
 						aria-pressed={selectedMiddleNodes.has(node.id)}
-						on:click={() => node.x === middleX && toggleMiddleNode(node.id)}
-						on:keydown={(event) => node.x === middleX && handleNodeKeydown(event, node.id)}
+						on:click={() => node.x === skillX && toggleMiddleNode(node.id)}
+						on:keydown={(event) => node.x === skillX && handleNodeKeydown(event, node.id)}
 					>
 						<circle
 							cx={node.x}
@@ -157,7 +183,7 @@
 		<div>
 			I am a <select on:change={handleDropdownSelect} multiple>
 				<option value="" disabled>Full-Stack Developer</option>
-				{#each middleNodes as node}
+				{#each skillNodes as node}
 					<option value={node}>{node}</option>
 				{/each}
 			</select>
