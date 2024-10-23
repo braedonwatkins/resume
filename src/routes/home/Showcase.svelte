@@ -29,7 +29,6 @@
 	let selectedJobNode = '';
 	let selectedSkillNodes = new Set<string>();
 	let rankedBulletNodes: RankedNode[] = [];
-	let searchTerm = '';
 	let zoomLevel = 1;
 
 	$: allNodes = [
@@ -152,14 +151,12 @@
 			toggleSkillNode(value);
 		}
 	}
+
+	let isSelectOpen = false;
 </script>
 
 <div class="flex-col flex-[2_1_0%] items-center justify-center gap-1">
-	<div class="controls">
-		<input bind:value={searchTerm} placeholder="Search middle nodes..." />
-		<p>Zoom: {zoomLevel.toFixed(2)}x</p>
-	</div>
-
+	<!-- Graph and Selects -->
 	<div class="flex gap-10 justify-around">
 		<div class="graph-container" on:wheel={handleZoom}>
 			<svg {width} {height} viewBox="0 0 {width} {height}" style="transform: scale({zoomLevel});">
@@ -254,9 +251,6 @@
 	}
 	.info {
 		margin-top: 10px;
-	}
-	.controls {
-		margin-bottom: 10px;
 	}
 	.selected-nodes {
 		display: flex;
