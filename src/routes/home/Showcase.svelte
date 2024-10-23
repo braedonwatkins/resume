@@ -32,17 +32,13 @@
 	let searchTerm = '';
 	let zoomLevel = 1;
 
-	$: filteredMiddleNodes = searchTerm
-		? skillNodes.filter((node) => node.toLowerCase().includes(searchTerm.toLowerCase()))
-		: skillNodes;
-
 	$: allNodes = [
 		...jobNodes.map((id, index) => ({
 			id,
 			x: jobX,
 			y: (index + 1) * (height / (jobNodes.length + 1))
 		})),
-		...filteredMiddleNodes.map((id, index) => ({
+		...skillNodes.map((id, index) => ({
 			id,
 			x: skillX,
 			y: (index + 1) * (height / (skillNodes.length + 1))
