@@ -1,265 +1,247 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./output.css" rel="stylesheet" />
     <script src="scripts.js" defer></script>
-  </head>
-  <body class="bg-stone-50 font-serif">
+</head>
+
+<body class="bg-stone-50 font-serif">
     <!-- a sticky navbar with anchors to sections of the page -->
     <nav
-      class="max-w-full sticky top-0 flex flex-auto justify-around py-2 px-5 bg-stone-50 backdrop-blur-sm bg-opacity-50 z-50"
-    >
-      <a href="#">Home</a>
-      <a href="#aboutMe">About Me</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <!-- <a href="#experience">Experience</a> -->
+        class="max-w-full sticky top-0 flex flex-auto justify-around py-2 px-5 bg-stone-50 backdrop-blur-sm bg-opacity-50 z-50">
+        <a href="#">Home</a>
+        <a href="#aboutMe">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <!-- <a href="#experience">Experience</a> -->
     </nav>
 
     <main class="flex flex-col px-10 md:px-48 content-center">
-      <!-- an about me section -->
-      <div id="aboutMe" class="m-2"></div>
-      <section>
-        <h1 class="text-4xl font-bold">Braedon Watkins</h1>
-        <h2 class="text-2xl pt-1 pb-1">
-          Senior in Computer Science at University of Central Florida
-        </h2>
+        <!-- an about me section -->
+        <div id="aboutMe" class="m-2"></div>
         <section>
-          <div class="flex flex-wrap justify-center">
-            <figure class="basis-44 shrink-0 mr-10">
-              <img
-                src="./me.png"
-                alt="a photo of a handsome and employable young man wearing formal clothes in a tasteful nature backdrop. when hovered he is in the same photoshoot but making a silly face."
-                onmouseover="hover(this);"
-                onmouseout="unhover(this);"
-              />
-              <figcaption class="text-center opacity-50 text-sm">
-                an employable young man
-              </figcaption>
-            </figure>
-            <div class="grow basis-8/12">
-              I am passionate about helping others by using the technical skills
-              I've acquired. I have a wide range of interests includeing game
-              development, artificial intelligence, robotics, and web
-              development.<br />
-              Before I aspired to a career in software, I studied astrophysics.
-              I have a lot of love for it but software development was my
-              calling. <br /><br />
+            <h1 class="text-4xl font-bold">Braedon Watkins</h1>
+            <h2 class="text-2xl pt-1 pb-1">
+                Senior in Computer Science at University of Central Florida
+            </h2>
+            <section>
+                <div class="flex flex-wrap justify-center">
+                    <figure class="basis-44 shrink-0 mr-10">
+                        <img src="./me.png"
+                            alt="a photo of a handsome and employable young man wearing formal clothes in a tasteful nature backdrop. when hovered he is in the same photoshoot but making a silly face."
+                            onmouseover="hover(this);" onmouseout="unhover(this);" />
+                        <figcaption class="text-center opacity-50 text-sm">
+                            an employable young man
+                        </figcaption>
+                    </figure>
+                    <div class="grow basis-8/12">
+                        I am passionate about helping others by using the technical skills
+                        I've acquired. I have a wide range of interests includeing game
+                        development, artificial intelligence, robotics, and web
+                        development.<br />
+                        Before I aspired to a career in software, I studied astrophysics.
+                        I have a lot of love for it but software development was my
+                        calling. <br /><br />
 
-              I also enjoy learning about other non-technical topics like
-              animation, music composition, and math. I hope to channel my
-              curiosity and breadth to continue growing in software! To wind
-              down, I like playing games. Some of my favorite game fixations are
-              Fire Emblem, Legend of Zelda, and Dungeons & Dragons.<br />
+                        I also enjoy learning about other non-technical topics like
+                        animation, music composition, and math. I hope to channel my
+                        curiosity and breadth to continue growing in software! To wind
+                        down, I like playing games. Some of my favorite game fixations are
+                        Fire Emblem, Legend of Zelda, and Dungeons & Dragons.<br />
 
-              <div class="grid grid-cols-1">
-                <div
-                  class="flex flex-col sm:flex-row justify-center gap-2 md:gap-10 py-4 mx-10 md:mx-0 md:px-40 lg:px-40"
-                >
-                  <a
-                    class="flex-1"
-                    href="mailto:watkins.braedon@gmail.com"
-                    target="_blank"
-                  >
-                    <button
-                      class="shrink-0 hover:bg-pink-700 hover:translate-y-1 hover:border-0 bg-pink-500 text-stone-100 border-pink-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2"
-                    >
-                      <span>Email</span>
-                      <img class="w-4 h-4" src="./mail.svg" />
-                    </button>
-                  </a>
-                  <a
-                    class="flex-1"
-                    href="https://github.com/braedonwatkins"
-                    target="_blank"
-                  >
-                    <button
-                      class="hover:bg-purple-700 hover:translate-y-1 hover:border-0 bg-purple-500 text-stone-100 border-purple-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2"
-                    >
-                      <span>GitHub</span>
-                      <img class="w-4 h-4" src="./github.svg" />
-                    </button>
-                  </a>
+                        <div class="grid grid-cols-1">
+                            <div
+                                class="flex flex-col sm:flex-row justify-center gap-2 md:gap-10 py-4 mx-10 md:mx-0 md:px-40 lg:px-40">
+                                <a class="flex-1" href="mailto:watkins.braedon@gmail.com" target="_blank">
+                                    <button
+                                        class="shrink-0 hover:bg-pink-700 hover:translate-y-1 hover:border-0 bg-pink-500 text-stone-100 border-pink-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2">
+                                        <span>Email</span>
+                                        <img class="w-4 h-4" src="./mail.svg" />
+                                    </button>
+                                </a>
+                                <a class="flex-1" href="https://github.com/braedonwatkins" target="_blank">
+                                    <button
+                                        class="hover:bg-purple-700 hover:translate-y-1 hover:border-0 bg-purple-500 text-stone-100 border-purple-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2">
+                                        <span>GitHub</span>
+                                        <img class="w-4 h-4" src="./github.svg" />
+                                    </button>
+                                </a>
 
-                  <a
-                    class="flex-1"
-                    href="https://www.linkedin.com/in/braedonwatkins/"
-                    target="_blank"
-                  >
-                    <button
-                      class="hover:bg-blue-700 hover:translate-y-1 hover:border-0 bg-blue-500 text-stone-100 border-blue-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2"
-                    >
-                      <span>LinkedIn</span>
-                      <img class="w-4 h-4" src="./linkedin.svg" />
-                    </button>
-                  </a>
+                                <a class="flex-1" href="https://www.linkedin.com/in/braedonwatkins/" target="_blank">
+                                    <button
+                                        class="hover:bg-blue-700 hover:translate-y-1 hover:border-0 bg-blue-500 text-stone-100 border-blue-600 border-b-4 w-full rounded-md py-2 px-10 inline-flex items-center justify-center gap-2">
+                                        <span>LinkedIn</span>
+                                        <img class="w-4 h-4" src="./linkedin.svg" />
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </section>
         </section>
-      </section>
 
-      <!-- technical skills section -->
-      <div id="skills" class="m-10"></div>
-      <section>
-        <h1 class="text-2xl font-bold">Technical Skills</h1>
-        <!-- couldnt get grid working, working on custom padding -->
-        <div class="px-5">
-          <strong>Proficient Languages:</strong> TypeScript, JavaScript, Java,
-          C, Python, C# <br />
-          <strong>Familiar Languages:</strong> SQL, Lua, C++, Haskell, Erlang
-          <br />
-          <strong>Technologies, Tools, & Frameworks:</strong> Git, Tailwind,
-          Unity, Heroku, Linux, Apache, MySQL, PHP, MongoDB, Express, React,
-          Node, Next JS, Prisma, NGINX, TWGL, GLSL, PyTorch, TensorFlow, Pandas,
-          FFmpeg<br />
-        </div>
-      </section>
-
-      <!-- projects section -->
-
-      <!-- NEEDS BETTER FORMATTING FOR ROLES & FRAMEWORKS -->
-      <div id="projects" class="m-10"></div>
-
-      <section>
-        <h1 class="text-2xl font-bold">Projects</h1>
-
-        <div class="grid grid-cols-1">
-          <div class="projComponent pl-5 pr-10 py-2">
-            <div class="text-center grid grid-cols-2 gap-3">
-              <div class="grid grid-cols-3 auto-cols-auto items-center">
-                <div class="text-left font-bold">EMURR Capstone</div>
-                <div class="text-sm visibility: hidden sm:block">PM</div>
-                <div class="text-sm visibility: hidden sm:block">Next JS</div>
-              </div>
-              <!-- favicon right here -->
-              <div class="text-right">07/2022 - 10/2022</div>
+        <!-- technical skills section -->
+        <div id="skills" class="m-10"></div>
+        <section>
+            <h1 class="text-2xl font-bold">Technical Skills</h1>
+            <!-- couldnt get grid working, working on custom padding -->
+            <div class="px-5">
+                <strong>Proficient Languages:</strong> TypeScript, JavaScript, Java,
+                C, Python, C# <br />
+                <strong>Familiar Languages:</strong> SQL, Lua, C++, Haskell, Erlang
+                <br />
+                <strong>Technologies, Tools, & Frameworks:</strong> Git, Tailwind,
+                Unity, Heroku, Linux, Apache, MySQL, PHP, MongoDB, Express, React,
+                Node, Next JS, Prisma, NGINX, TWGL, GLSL, PyTorch, TensorFlow, Pandas,
+                FFmpeg<br />
             </div>
-            <div></div>
-            <ul class="pl-5 list-disc">
-              <li>
-                Web application focused on bridging the gap between digital and
-                physical sites
-              </li>
-              <li>
-                Finalist project (top 7 out of 90) for UCF CECS senior design
-                showcase awards ceremony
-              </li>
-              <li>
-                Developed frontend user interaction and backend bash scripts for
-                Raspberry Pi
-              </li>
-            </ul>
-          </div>
-          <div class="projComponent pl-5 pr-10 py-2">
-            <div class="text-center grid grid-cols-2 gap-3">
-              <!-- favicon right here -->
-              <div class="grid grid-cols-3 auto-cols-auto items-center">
-                <div class="text-left font-bold">Etch-A-Sketch</div>
-                <div class="text-sm visibility: hidden sm:block"></div>
-                <div class="text-sm visibility: hidden sm:block"></div>
-              </div>
-              <div class="text-right">05/2022</div>
-            </div>
-            <div></div>
-            <ul class="pl-5 list-disc">
-              <li>
-                A classic toy reimagined: a weekend project for frontend review
-              </li>
-              <li>
-                Reinforced knowledge and implementation of JavaScript and DOM
-                Manipulation
-              </li>
-              <li>
-                Managed scope with optional features to deliver a functional
-                site in the time allotted
-              </li>
-            </ul>
-          </div>
-          <div class="projComponent pl-5 pr-10 py-2">
-            <div class="text-center grid grid-cols-2 gap-3">
-              <!-- favicon right here -->
-              <div class="grid grid-cols-3 auto-cols-auto items-center">
-                <div class="text-left font-bold">Grass, Water, Fire</div>
-                <div class="text-sm visibility: hidden sm:block"></div>
-                <div class="text-sm visibility: hidden sm:block"></div>
-              </div>
-              <div class="text-right">05/2022</div>
-            </div>
-            <ul class="pl-5 list-disc">
-              <li>
-                Rock, Paper, Scissors with a twist: a weekend project for
-                frontend review
-              </li>
-              <li>
-                Reinforced knowledge and implementation of JavaScript and CSS
-                patterns
-              </li>
-              <li>
-                Functioned independently to deliver a clean, user-friendly
-                interface
-              </li>
-            </ul>
-          </div>
-          <div class="projComponent pl-5 pr-10 py-2">
-            <div class="text-center grid grid-cols-2 gap-3">
-              <!-- favicon right here -->
-              <div class="grid grid-cols-3 auto-cols-auto items-center">
-                <div class="text-left font-bold">Gamers Social Media</div>
-                <div class="text-sm visibility: hidden sm:block">PM</div>
-                <div class="text-sm visibility: hidden sm:block">MERN</div>
-              </div>
-              <div class="text-right">10/2021 - 11/2021</div>
-            </div>
-            <ul class="pl-5 list-disc">
-              <li>
-                Social media app and mobile companion to connect users by video
-                game interests
-              </li>
-              <li>
-                Collaborated with Frontend, API, and Backend teams to solve
-                critical issues
-              </li>
-              <li>
-                Curated scrum meetings to build solutions together as a team
-              </li>
-            </ul>
-          </div>
-          <div class="projComponent pl-5 pr-10 py-2">
-            <div class="text-center grid grid-cols-2 gap-3">
-              <!-- favicon right here -->
-              <div class="grid grid-cols-3 auto-cols-auto items-center">
-                <div class="text-left font-bold">Khantact Manager</div>
-                <div class="text-sm visibility: hidden sm:block">
-                  PM & Frontend
+        </section>
+
+        <!-- projects section -->
+
+        <!-- NEEDS BETTER FORMATTING FOR ROLES & FRAMEWORKS -->
+        <div id="projects" class="m-10"></div>
+
+        <section>
+            <h1 class="text-2xl font-bold">Projects</h1>
+
+            <div class="grid grid-cols-1">
+                <div class="projComponent pl-5 pr-10 py-2">
+                    <div class="text-center grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-3 auto-cols-auto items-center">
+                            <div class="text-left font-bold">EMURR Capstone</div>
+                            <div class="text-sm visibility: hidden sm:block">PM</div>
+                            <div class="text-sm visibility: hidden sm:block">Next JS</div>
+                        </div>
+                        <!-- favicon right here -->
+                        <div class="text-right">07/2022 - 10/2022</div>
+                    </div>
+                    <div></div>
+                    <ul class="pl-5 list-disc">
+                        <li>
+                            Web application focused on bridging the gap between digital and
+                            physical sites
+                        </li>
+                        <li>
+                            Finalist project (top 7 out of 90) for UCF CECS senior design
+                            showcase awards ceremony
+                        </li>
+                        <li>
+                            Developed frontend user interaction and backend bash scripts for
+                            Raspberry Pi
+                        </li>
+                    </ul>
                 </div>
-                <div class="text-sm visibility: hidden sm:block">LAMP</div>
-              </div>
-              <div class="text-right">08/2021 - 09/2021</div>
+                <div class="projComponent pl-5 pr-10 py-2">
+                    <div class="text-center grid grid-cols-2 gap-3">
+                        <!-- favicon right here -->
+                        <div class="grid grid-cols-3 auto-cols-auto items-center">
+                            <div class="text-left font-bold">Etch-A-Sketch</div>
+                            <div class="text-sm visibility: hidden sm:block"></div>
+                            <div class="text-sm visibility: hidden sm:block"></div>
+                        </div>
+                        <div class="text-right">05/2022</div>
+                    </div>
+                    <div></div>
+                    <ul class="pl-5 list-disc">
+                        <li>
+                            A classic toy reimagined: a weekend project for frontend review
+                        </li>
+                        <li>
+                            Reinforced knowledge and implementation of JavaScript and DOM
+                            Manipulation
+                        </li>
+                        <li>
+                            Managed scope with optional features to deliver a functional
+                            site in the time allotted
+                        </li>
+                    </ul>
+                </div>
+                <div class="projComponent pl-5 pr-10 py-2">
+                    <div class="text-center grid grid-cols-2 gap-3">
+                        <!-- favicon right here -->
+                        <div class="grid grid-cols-3 auto-cols-auto items-center">
+                            <div class="text-left font-bold">Grass, Water, Fire</div>
+                            <div class="text-sm visibility: hidden sm:block"></div>
+                            <div class="text-sm visibility: hidden sm:block"></div>
+                        </div>
+                        <div class="text-right">05/2022</div>
+                    </div>
+                    <ul class="pl-5 list-disc">
+                        <li>
+                            Rock, Paper, Scissors with a twist: a weekend project for
+                            frontend review
+                        </li>
+                        <li>
+                            Reinforced knowledge and implementation of JavaScript and CSS
+                            patterns
+                        </li>
+                        <li>
+                            Functioned independently to deliver a clean, user-friendly
+                            interface
+                        </li>
+                    </ul>
+                </div>
+                <div class="projComponent pl-5 pr-10 py-2">
+                    <div class="text-center grid grid-cols-2 gap-3">
+                        <!-- favicon right here -->
+                        <div class="grid grid-cols-3 auto-cols-auto items-center">
+                            <div class="text-left font-bold">Gamers Social Media</div>
+                            <div class="text-sm visibility: hidden sm:block">PM</div>
+                            <div class="text-sm visibility: hidden sm:block">MERN</div>
+                        </div>
+                        <div class="text-right">10/2021 - 11/2021</div>
+                    </div>
+                    <ul class="pl-5 list-disc">
+                        <li>
+                            Social media app and mobile companion to connect users by video
+                            game interests
+                        </li>
+                        <li>
+                            Collaborated with Frontend, API, and Backend teams to solve
+                            critical issues
+                        </li>
+                        <li>
+                            Curated scrum meetings to build solutions together as a team
+                        </li>
+                    </ul>
+                </div>
+                <div class="projComponent pl-5 pr-10 py-2">
+                    <div class="text-center grid grid-cols-2 gap-3">
+                        <!-- favicon right here -->
+                        <div class="grid grid-cols-3 auto-cols-auto items-center">
+                            <div class="text-left font-bold">Khantact Manager</div>
+                            <div class="text-sm visibility: hidden sm:block">
+                                PM & Frontend
+                            </div>
+                            <div class="text-sm visibility: hidden sm:block">LAMP</div>
+                        </div>
+                        <div class="text-right">08/2021 - 09/2021</div>
+                    </div>
+                    <ul class="pl-5 list-disc">
+                        <li>
+                            An online rolodex with registration, log in, and CRUD operations
+                        </li>
+                        <li>
+                            Discussed with Frontend, API, and Backend teams to solve urgent
+                            problems
+                        </li>
+                        <li>
+                            Maintained CSS animations and stylization of webpage with
+                            Frontend team
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul class="pl-5 list-disc">
-              <li>
-                An online rolodex with registration, log in, and CRUD operations
-              </li>
-              <li>
-                Discussed with Frontend, API, and Backend teams to solve urgent
-                problems
-              </li>
-              <li>
-                Maintained CSS animations and stylization of webpage with
-                Frontend team
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- work experience -->
-      <!-- <div id="experience" class="m-10"></div> -->
-      <!-- <section>
+        <!-- work experience -->
+        <!-- <div id="experience" class="m-10"></div> -->
+        <!-- <section>
         <h1 class="text-2xl font-bold">Experience</h1>
 
         <div class="grid grid-cols-1">
@@ -313,8 +295,8 @@
       </section> -->
     </main>
     <footer class="h-10">
-      <div></div>
+        <div></div>
     </footer>
-  </body>
-</html>
+</body>
 
+</html>
