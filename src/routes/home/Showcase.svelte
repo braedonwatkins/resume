@@ -18,16 +18,17 @@
 		projectNodes
 	);
 
-	const width = 600;
+	const width = 500;
 	const height = 400;
 	const nodeRadius = 5;
 	const jobX = 10;
-	const skillX = 170;
-	const bulletX = 320;
-	const projectX = 470;
+	const skillX = 145;
+	const bulletX = 290;
+	const projectX = 400;
 
-	let selectedMiddleNodes = new Set<string>();
-	let rankedRightNodes: RankedNode[] = [];
+	let selectedJobNode = '';
+	let selectedSkillNodes = new Set<string>();
+	let rankedBulletNodes: RankedNode[] = [];
 	let searchTerm = '';
 	let zoomLevel = 1;
 
@@ -70,7 +71,7 @@
 		const bulletNodeCounts = new Map<string, number>();
 
 		edges.forEach((edge) => {
-			if (selectedMiddleNodes.has(edge.source)) {
+			if (selectedSkillNodes.has(edge.source)) {
 				const bulletNode = bulletNodes.find((node) => node === edge.target);
 				if (bulletNode) {
 					bulletNodeCounts.set(bulletNode, (bulletNodeCounts.get(bulletNode) || 0) + 1);
@@ -82,17 +83,36 @@
 			.map(([id, count]) => ({ id, count }))
 			.sort((a, b) => b.count - a.count);
 
-		rankedRightNodes = ranked;
+		rankedBulletNodes = ranked;
 	}
 
-	function toggleMiddleNode(nodeId: string) {
-		const set = new Set<string>(selectedMiddleNodes);
+	function toggleJobNode(nodeId: string) {
+		// reset our skill and bullet nodes
+		selectedSkillNodes = new Set<string>();
+		rankedBulletNodes = [];
+
+		selectedJobNode =
+			jobNodes.find((node) => {
+				return node === nodeId;
+			}) ?? '';
+
+		for (const edge of edges) {
+			if (edge.source === selectedJobNode && !selectedSkillNodes.has(edge.target)) {
+				selectedSkillNodes.add(edge.target);
+				selectedSkillNodes = selectedSkillNodes;
+				updateRankedRightNodes();
+			}
+		}
+	}
+
+	function toggleSkillNode(nodeId: string) {
+		const set = new Set<string>(selectedSkillNodes);
 		if (set.has(nodeId)) {
 			set.delete(nodeId);
 		} else {
 			set.add(nodeId);
 		}
-		selectedMiddleNodes = set;
+		selectedSkillNodes = set;
 
 		updateRankedRightNodes();
 	}
@@ -107,11 +127,11 @@
 	function handleNodeKeydown(event: KeyboardEvent, nodeId: string) {
 		if (event.key === 'Enter' || event.key === ' ') {
 			event.preventDefault();
-			toggleMiddleNode(nodeId);
+			toggleSkillNode(nodeId);
 		}
 	}
 
-	function handleDropdownSelect(event: Event) {
+	function handleJobSelect(event: Event) {
 		const { options } = event.target as HTMLSelectElement;
 		const selectedValues = Array.from(options)
 			.filter((option) => option.selected)
@@ -119,9 +139,21 @@
 
 		console.log('Selected values changed:', selectedValues);
 
-		selectedMiddleNodes.clear();
 		for (const value of selectedValues) {
-			toggleMiddleNode(value);
+			toggleJobNode(value);
+		}
+	}
+	function handleSkillSelect(event: Event) {
+		const { options } = event.target as HTMLSelectElement;
+		const selectedValues = Array.from(options)
+			.filter((option) => option.selected)
+			.map((option) => option.value);
+
+		console.log('Selected values changed:', selectedValues);
+
+		selectedSkillNodes.clear();
+		for (const value of selectedValues) {
+			toggleSkillNode(value);
 		}
 	}
 </script>
@@ -144,9 +176,9 @@
 							y1={source.y}
 							x2={target.x}
 							y2={target.y}
-							stroke={selectedMiddleNodes.has(source.id) ||
-							selectedMiddleNodes.has(target.id) ||
-							rankedRightNodes.some((node) => node.id === source.id)
+							stroke={selectedSkillNodes.has(source.id) ||
+							selectedSkillNodes.has(target.id) ||
+							rankedBulletNodes.some((node) => node.id === source.id)
 								? 'red'
 								: '#ccc'}
 							stroke-width="0.5"
@@ -158,8 +190,8 @@
 					<g
 						role="button"
 						tabindex={node.x === skillX ? 0 : 1}
-						aria-pressed={selectedMiddleNodes.has(node.id)}
-						on:click={() => node.x === skillX && toggleMiddleNode(node.id)}
+						aria-pressed={selectedSkillNodes.has(node.id)}
+						on:click={() => node.x === skillX && toggleSkillNode(node.id)}
 						on:keydown={(event) => node.x === skillX && handleNodeKeydown(event, node.id)}
 					>
 						<circle
@@ -167,7 +199,9 @@
 							cy={node.y}
 							r={nodeRadius}
 							fill={getNodeColor(node)}
-							stroke={selectedMiddleNodes.has(node.id) || rankedRightNodes[0]?.id === node.id
+							stroke={selectedJobNode === node.id ||
+							selectedSkillNodes.has(node.id) ||
+							rankedBulletNodes[0]?.id === node.id
 								? 'red'
 								: 'none'}
 							stroke-width="1"
@@ -181,26 +215,32 @@
 		</div>
 
 		<div>
-			I am a <select on:change={handleDropdownSelect} multiple>
-				<option value="" disabled>Full-Stack Developer</option>
-				{#each skillNodes as node}
+			I am a <select on:change={handleJobSelect}>
+				<option value="" selected>Full-Stack Developer</option>
+				{#each jobNodes as node}
 					<option value={node}>{node}</option>
 				{/each}
 			</select>
-			building the future with <select></select>
+			building the future with
+			<select on:change={handleSkillSelect} multiple size="1">
+				<option value="" selected>everything</option>
+				{#each skillNodes as node}
+					<option value={node}>{node}</option>
+				{/each}
+			</select>.
 		</div>
 	</div>
 
 	<div class="info">
 		<h3>Selected middle nodes:</h3>
 		<div class="selected-nodes">
-			{#each [...selectedMiddleNodes] as nodeId}
+			{#each [...selectedSkillNodes] as nodeId}
 				<span class="node-tag">{nodeId}</span>
 			{/each}
 		</div>
 		<h3>Ranked Right Nodes (Top 10):</h3>
 		<ol>
-			{#each rankedRightNodes.slice(0, 10) as node}
+			{#each rankedBulletNodes.slice(0, 10) as node}
 				<li>{node.id} (Count: {node.count})</li>
 			{/each}
 		</ol>
