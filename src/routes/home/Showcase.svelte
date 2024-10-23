@@ -215,7 +215,13 @@
 				{/each}
 			</select>
 			building the future with
-			<select on:change={handleSkillSelect} multiple size="1">
+			<select
+				on:change={handleSkillSelect}
+				on:focus={() => (isSelectOpen = true)}
+				on:blur={() => (isSelectOpen = false)}
+				multiple
+				size={isSelectOpen ? Math.min(skillNodes.length, 5) : 1}
+			>
 				<option value="" selected>everything</option>
 				{#each skillNodes as node}
 					<option value={node}>{node}</option>
