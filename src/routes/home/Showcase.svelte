@@ -251,6 +251,7 @@
 							fill={getNodeColor(node)}
 							stroke={selectedJobNode === node.id ||
 							selectedSkillNodes.has(node.id) ||
+							rankedProjectNodes[0]?.id === node.id ||
 							rankedBulletNodes[0]?.id === node.id ||
 							rankedJobNodes[0]?.id === node.id
 								? 'red'
