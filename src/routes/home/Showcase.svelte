@@ -112,6 +112,7 @@
 				return node === nodeId;
 			}) ?? '';
 
+		//TODO: should this look more like toggleSkillNode? Look into this later...
 		for (const edge of edges) {
 			if (edge.source === selectedJobNode && !selectedSkillNodes.has(edge.target)) {
 				selectedSkillNodes.add(edge.target);
