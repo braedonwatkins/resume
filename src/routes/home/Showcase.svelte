@@ -66,7 +66,6 @@
 
 	//TODO: consolidate this into a util function for all updateRanks maybe?
 	function updateRankedProjectNodes() {
-		alert('INSIDE RANKED PROJECT NODES');
 		const projectNodeCounts = new Map<string, number>();
 
 		//TODO: this is pretty weird, no? might be worth reworking...
