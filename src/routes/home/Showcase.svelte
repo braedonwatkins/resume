@@ -28,6 +28,7 @@
 
 	let selectedJobNode = '';
 	let selectedSkillNodes = new Set<string>();
+	let rankedProjectNodes: RankedNode[] = [];
 	let rankedJobNodes: RankedNode[] = [];
 	let rankedBulletNodes: RankedNode[] = [];
 	let zoomLevel = 1;
@@ -61,6 +62,35 @@
 		if (node.x === bulletX) return 'lightpink';
 		if (node.x === projectX) return 'mediumpurple';
 		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
+	}
+
+	//TODO: consolidate this into a util function for all updateRanks maybe?
+	function updateRankedProjectNodes() {
+		alert('INSIDE RANKED PROJECT NODES');
+		const projectNodeCounts = new Map<string, number>();
+
+		//TODO: this is pretty weird, no? might be worth reworking...
+		const selectedBulletNodes = new Set<string>();
+		rankedBulletNodes.map((node: RankedNode) => {
+			selectedBulletNodes.add(node.id);
+			return null;
+		});
+
+		edges.forEach((edge) => {
+			if (selectedBulletNodes.has(edge.source)) {
+				alert('GOT A HIT');
+				const projectNode = projectNodes.find((node) => node === edge.target);
+				if (projectNode) {
+					projectNodeCounts.set(projectNode, (projectNodeCounts.get(projectNode) || 0) + 1);
+				}
+			}
+		});
+
+		const ranked: RankedNode[] = Array.from(projectNodeCounts.entries())
+			.map(([id, count]) => ({ id, count }))
+			.sort((a, b) => b.count - a.count);
+
+		rankedProjectNodes = ranked;
 	}
 
 	function updateRankedJobNodes() {
@@ -99,6 +129,10 @@
 			.sort((a, b) => b.count - a.count);
 
 		rankedBulletNodes = ranked;
+
+		// There's really no other case we want to trigger than when we update bullet ranks
+		// feels a bit janky but that feels trueest
+		updateRankedProjectNodes();
 	}
 
 	function toggleJobNode(nodeId: string) {
@@ -116,7 +150,7 @@
 		for (const edge of edges) {
 			if (edge.source === selectedJobNode && !selectedSkillNodes.has(edge.target)) {
 				selectedSkillNodes.add(edge.target);
-				selectedSkillNodes = selectedSkillNodes;
+				selectedSkillNodes = selectedSkillNodes; //TODO: figure out if this is the best way to cause re-renders in Svelte
 			}
 		}
 		updateRankedBulletNodes();
@@ -276,6 +310,14 @@
 			Ranked Bullet Nodes (Top 10):
 			<ol>
 				{#each rankedBulletNodes.slice(0, 10) as node}
+					<li>{node.id} (Count: {node.count})</li>
+				{/each}
+			</ol>
+		</h3>
+		<h3 class="flex-col">
+			Ranked Project Nodes (Top 10):
+			<ol>
+				{#each rankedProjectNodes.slice(0, 10) as node}
 					<li>{node.id} (Count: {node.count})</li>
 				{/each}
 			</ol>
