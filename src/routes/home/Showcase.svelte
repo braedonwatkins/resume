@@ -67,10 +67,10 @@
 		const jobNodeCounts = new Map<string, number>();
 
 		edges.forEach((edge) => {
-			if (selectedSkillNodes.has(edge.source)) {
-				const bulletNode = bulletNodes.find((node) => node === edge.target);
-				if (bulletNode) {
-					jobNodeCounts.set(bulletNode, (jobNodeCounts.get(bulletNode) || 0) + 1);
+			if (selectedSkillNodes.has(edge.target)) {
+				const jobNode = jobNodes.find((node) => node === edge.source);
+				if (jobNode) {
+					jobNodeCounts.set(jobNode, (jobNodeCounts.get(jobNode) || 0) + 1);
 				}
 			}
 		});
@@ -79,7 +79,7 @@
 			.map(([id, count]) => ({ id, count }))
 			.sort((a, b) => b.count - a.count);
 
-		rankedBulletNodes = ranked;
+		rankedJobNodes = ranked;
 	}
 
 	function updateRankedBulletNodes() {
@@ -104,6 +104,7 @@
 	function toggleJobNode(nodeId: string) {
 		// reset our skill and bullet nodes
 		selectedSkillNodes = new Set<string>();
+		rankedJobNodes = [];
 		rankedBulletNodes = [];
 
 		selectedJobNode =
@@ -128,6 +129,7 @@
 			set.add(nodeId);
 		}
 		selectedSkillNodes = set;
+		selectedJobNode = '';
 
 		updateRankedBulletNodes();
 		updateRankedJobNodes();
@@ -147,6 +149,7 @@
 		}
 	}
 
+	//TODO: shouldn't this only select one? check later...
 	function handleJobSelect(event: Event) {
 		const { options } = event.target as HTMLSelectElement;
 		const selectedValues = Array.from(options)
@@ -215,7 +218,8 @@
 							fill={getNodeColor(node)}
 							stroke={selectedJobNode === node.id ||
 							selectedSkillNodes.has(node.id) ||
-							rankedBulletNodes[0]?.id === node.id
+							rankedBulletNodes[0]?.id === node.id ||
+							rankedJobNodes[0]?.id === node.id
 								? 'red'
 								: 'none'}
 							stroke-width="1"
