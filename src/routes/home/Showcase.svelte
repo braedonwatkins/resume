@@ -64,19 +64,19 @@
 		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
 	}
 
-	//TODO: consolidate this into a util function for all updateRanks maybe?
+	/* TODO: figure out if there's a way to consolidate these
+        NOTE:
+        - for updateRankedProjectNodes() the source is rankedBulletNodes of type RankedNode[]
+        - for updateRankedJobNodes() the Set<string> is the target, not the source
+        - for updateRankedBulletNodes() the Set<string> selectedSkillNodes is the source 
+        - all have targets that are of type RankedNode[]
+    */
+
 	function updateRankedProjectNodes() {
 		const projectNodeCounts = new Map<string, number>();
 
-		//TODO: this is pretty weird, no? might be worth reworking...
-		const selectedBulletNodes = new Set<string>();
-		rankedBulletNodes.map((node: RankedNode) => {
-			selectedBulletNodes.add(node.id);
-			return null;
-		});
-
 		edges.forEach((edge) => {
-			if (!selectedBulletNodes.has(edge.source)) return;
+			if (!rankedBulletNodes.some((node) => node.id === edge.source)) return;
 
 			const projectNode = projectNodes.find((node) => node === edge.target);
 			if (!projectNode) return;
