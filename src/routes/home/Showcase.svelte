@@ -28,6 +28,7 @@
 
 	let selectedJobNode = '';
 	let selectedSkillNodes = new Set<string>();
+	let rankedJobNodes: RankedNode[] = [];
 	let rankedBulletNodes: RankedNode[] = [];
 	let zoomLevel = 1;
 
@@ -62,7 +63,26 @@
 		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
 	}
 
-	function updateRankedRightNodes() {
+	function updateRankedJobNodes() {
+		const jobNodeCounts = new Map<string, number>();
+
+		edges.forEach((edge) => {
+			if (selectedSkillNodes.has(edge.source)) {
+				const bulletNode = bulletNodes.find((node) => node === edge.target);
+				if (bulletNode) {
+					jobNodeCounts.set(bulletNode, (jobNodeCounts.get(bulletNode) || 0) + 1);
+				}
+			}
+		});
+
+		const ranked: RankedNode[] = Array.from(jobNodeCounts.entries())
+			.map(([id, count]) => ({ id, count }))
+			.sort((a, b) => b.count - a.count);
+
+		rankedBulletNodes = ranked;
+	}
+
+	function updateRankedBulletNodes() {
 		const bulletNodeCounts = new Map<string, number>();
 
 		edges.forEach((edge) => {
@@ -95,7 +115,7 @@
 			if (edge.source === selectedJobNode && !selectedSkillNodes.has(edge.target)) {
 				selectedSkillNodes.add(edge.target);
 				selectedSkillNodes = selectedSkillNodes;
-				updateRankedRightNodes();
+				updateRankedBulletNodes();
 			}
 		}
 	}
@@ -109,7 +129,8 @@
 		}
 		selectedSkillNodes = set;
 
-		updateRankedRightNodes();
+		updateRankedBulletNodes();
+		updateRankedJobNodes();
 	}
 
 	// NOTE: GRAPH EVENTS BELOW
@@ -231,19 +252,29 @@
 	</div>
 
 	<!-- listing of selected nodes  -->
-	<div class="info">
-		<h3>Selected Skill Nodes:</h3>
-		<div class="selected-nodes">
+	<div class="info flex gap-2">
+		<div class="selected-nodes flex-col">
+			<h3>Selected Skill Nodes:</h3>
 			{#each [...selectedSkillNodes] as nodeId}
 				<span class="node-tag">{nodeId}</span>
 			{/each}
 		</div>
-		<h3>Ranked Bullet Nodes (Top 10):</h3>
-		<ol>
-			{#each rankedBulletNodes.slice(0, 10) as node}
-				<li>{node.id} (Count: {node.count})</li>
-			{/each}
-		</ol>
+		<h3 class="flex-col">
+			Ranked Job Nodes (Top 10):
+			<ol>
+				{#each rankedJobNodes.slice(0, 10) as node}
+					<li>{node.id} (Count: {node.count})</li>
+				{/each}
+			</ol>
+		</h3>
+		<h3 class="flex-col">
+			Ranked Bullet Nodes (Top 10):
+			<ol>
+				{#each rankedBulletNodes.slice(0, 10) as node}
+					<li>{node.id} (Count: {node.count})</li>
+				{/each}
+			</ol>
+		</h3>
 	</div>
 </div>
 
