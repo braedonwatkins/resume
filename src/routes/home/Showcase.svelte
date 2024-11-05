@@ -76,13 +76,12 @@
 		});
 
 		edges.forEach((edge) => {
-			if (selectedBulletNodes.has(edge.source)) {
-				alert('GOT A HIT');
-				const projectNode = projectNodes.find((node) => node === edge.target);
-				if (projectNode) {
-					projectNodeCounts.set(projectNode, (projectNodeCounts.get(projectNode) || 0) + 1);
-				}
-			}
+			if (!selectedBulletNodes.has(edge.source)) return;
+
+			const projectNode = projectNodes.find((node) => node === edge.target);
+			if (!projectNode) return;
+
+			projectNodeCounts.set(projectNode, (projectNodeCounts.get(projectNode) || 0) + 1);
 		});
 
 		const ranked: RankedNode[] = Array.from(projectNodeCounts.entries())
