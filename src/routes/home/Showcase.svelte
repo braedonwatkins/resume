@@ -117,9 +117,9 @@
 			if (edge.source === selectedJobNode && !selectedSkillNodes.has(edge.target)) {
 				selectedSkillNodes.add(edge.target);
 				selectedSkillNodes = selectedSkillNodes;
-				updateRankedBulletNodes();
 			}
 		}
+		updateRankedBulletNodes();
 	}
 
 	function toggleSkillNode(nodeId: string) {
