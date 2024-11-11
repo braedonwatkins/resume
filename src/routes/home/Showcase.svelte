@@ -28,6 +28,7 @@
 
 	let selectedJobNode = '';
 	let selectedSkillNodes = new Set<string>();
+
 	let rankedProjectNodes: RankedNode[] = [];
 	let rankedJobNodes: RankedNode[] = [];
 	let rankedBulletNodes: RankedNode[] = [];
@@ -76,12 +77,16 @@
 		const projectNodeCounts = new Map<string, number>();
 
 		edges.forEach((edge) => {
-			if (!rankedBulletNodes.some((node) => node.id === edge.source)) return;
+			const rankedBulletNode = rankedBulletNodes.find((node) => node.id === edge.source);
+			if (!rankedBulletNode) return;
 
 			const projectNode = projectNodes.find((node) => node === edge.target);
 			if (!projectNode) return;
 
-			projectNodeCounts.set(projectNode, (projectNodeCounts.get(projectNode) || 0) + 1);
+			projectNodeCounts.set(
+				projectNode,
+				(projectNodeCounts.get(projectNode) || 0) + rankedBulletNode.count
+			);
 		});
 
 		const ranked: RankedNode[] = Array.from(projectNodeCounts.entries())
