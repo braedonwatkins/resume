@@ -34,6 +34,7 @@
 	let rankedBulletNodes: RankedNode[] = [];
 	let rankedProjectNodes: RankedNode[] = [];
 	let zoomLevel = 1;
+	let isSelectOpen = false;
 
 	$: allNodes = [
 		...jobNodes.map((id, index) => ({
@@ -66,36 +67,14 @@
 		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
 	}
 
-	/* TODO: figure out if there's a way to consolidate these
+	/* 
+        TODO: figure out if there's a way to consolidate these
         NOTE:
         - for updateRankedProjectNodes() the source is rankedBulletNodes of type RankedNode[]
         - for updateRankedJobNodes() the selectedSkillNodes Set<string> is the target, not the source
         - for updateRankedBulletNodes() the selectedSkillNodes Set<string> selectedSkillNodes is the source 
         - all have targets that are of type RankedNode[]
     */
-
-	function updateRankedProjectNodes() {
-		const projectNodeCounts = new Map<string, number>();
-
-		edges.forEach((edge) => {
-			const rankedBulletNode = rankedBulletNodes.find((node) => node.id === edge.source);
-			if (!rankedBulletNode) return;
-
-			const projectNode = projectNodes.find((node) => node === edge.target);
-			if (!projectNode) return;
-
-			projectNodeCounts.set(
-				projectNode,
-				(projectNodeCounts.get(projectNode) || 0) + rankedBulletNode.count
-			);
-		});
-
-		const ranked: RankedNode[] = Array.from(projectNodeCounts.entries())
-			.map(([id, count]) => ({ id, count }))
-			.sort((a, b) => b.count - a.count);
-
-		rankedProjectNodes = ranked;
-	}
 
 	function updateRankedJobNodes() {
 		const jobNodeCounts = new Map<string, number>();
@@ -156,6 +135,29 @@
 		// There's really no other case we want to trigger than when we update bullet ranks
 		// feels a bit janky but that feels trueest
 		updateRankedProjectNodes();
+	}
+
+	function updateRankedProjectNodes() {
+		const projectNodeCounts = new Map<string, number>();
+
+		edges.forEach((edge) => {
+			const rankedBulletNode = rankedBulletNodes.find((node) => node.id === edge.source);
+			if (!rankedBulletNode) return;
+
+			const projectNode = projectNodes.find((node) => node === edge.target);
+			if (!projectNode) return;
+
+			projectNodeCounts.set(
+				projectNode,
+				(projectNodeCounts.get(projectNode) || 0) + rankedBulletNode.count
+			);
+		});
+
+		const ranked: RankedNode[] = Array.from(projectNodeCounts.entries())
+			.map(([id, count]) => ({ id, count }))
+			.sort((a, b) => b.count - a.count);
+
+		rankedProjectNodes = ranked;
 	}
 
 	function toggleJobNode(nodeId: string) {
@@ -236,8 +238,6 @@
 			toggleSkillNode(value);
 		}
 	}
-
-	let isSelectOpen = false;
 </script>
 
 <div class="flex-col flex-[2_1_0%] items-center justify-center gap-1">
