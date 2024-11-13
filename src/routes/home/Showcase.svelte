@@ -29,9 +29,10 @@
 	let selectedJobNode = '';
 	let selectedSkillNodes = new Set<string>();
 
-	let rankedProjectNodes: RankedNode[] = [];
 	let rankedJobNodes: RankedNode[] = [];
+	let rankedSkillNodes: RankedNode[] = [];
 	let rankedBulletNodes: RankedNode[] = [];
+	let rankedProjectNodes: RankedNode[] = [];
 	let zoomLevel = 1;
 
 	$: allNodes = [
@@ -68,8 +69,8 @@
 	/* TODO: figure out if there's a way to consolidate these
         NOTE:
         - for updateRankedProjectNodes() the source is rankedBulletNodes of type RankedNode[]
-        - for updateRankedJobNodes() the Set<string> is the target, not the source
-        - for updateRankedBulletNodes() the Set<string> selectedSkillNodes is the source 
+        - for updateRankedJobNodes() the selectedSkillNodes Set<string> is the target, not the source
+        - for updateRankedBulletNodes() the selectedSkillNodes Set<string> selectedSkillNodes is the source 
         - all have targets that are of type RankedNode[]
     */
 
@@ -115,6 +116,25 @@
 		rankedJobNodes = ranked;
 	}
 
+	function updateRankedSkillNodes() {
+		const skillNodeCounts = new Map<string, number>();
+
+		edges.forEach((edge) => {
+			if (selectedJobNode === edge.source) {
+				const skillNode = skillNodes.find((node) => node === edge.target);
+				if (skillNode) {
+					skillNodeCounts.set(skillNode, (skillNodeCounts.get(skillNode) || 0) + 1);
+				}
+			}
+		});
+
+		const ranked: RankedNode[] = Array.from(skillNodeCounts.entries())
+			.map(([id, count]) => ({ id, count }))
+			.sort((a, b) => b.count - a.count);
+
+		rankedSkillNodes = ranked;
+	}
+
 	function updateRankedBulletNodes() {
 		const bulletNodeCounts = new Map<string, number>();
 
@@ -141,8 +161,6 @@
 	function toggleJobNode(nodeId: string) {
 		// reset our skill and bullet nodes
 		selectedSkillNodes = new Set<string>();
-		rankedJobNodes = [];
-		rankedBulletNodes = [];
 
 		selectedJobNode =
 			jobNodes.find((node) => {
@@ -156,6 +174,9 @@
 				selectedSkillNodes = selectedSkillNodes; //TODO: figure out if this is the best way to cause re-renders in Svelte
 			}
 		}
+
+		rankedJobNodes = [{ id: selectedJobNode, count: 1 }];
+		updateRankedSkillNodes();
 		updateRankedBulletNodes();
 	}
 
@@ -169,8 +190,9 @@
 		selectedSkillNodes = set;
 		selectedJobNode = '';
 
-		updateRankedBulletNodes();
 		updateRankedJobNodes();
+		updateRankedSkillNodes();
+		updateRankedBulletNodes();
 	}
 
 	// NOTE: GRAPH EVENTS BELOW
@@ -200,6 +222,7 @@
 			toggleJobNode(value);
 		}
 	}
+
 	function handleSkillSelect(event: Event) {
 		const { options } = event.target as HTMLSelectElement;
 		const selectedValues = Array.from(options)
@@ -306,6 +329,14 @@
 			Ranked Job Nodes (Top 10):
 			<ol>
 				{#each rankedJobNodes.slice(0, 10) as node}
+					<li>{node.id} (Count: {node.count})</li>
+				{/each}
+			</ol>
+		</h3>
+		<h3 class="flex-col">
+			Ranked Skill Nodes (Top 10):
+			<ol>
+				{#each rankedSkillNodes.slice(0, 10) as node}
 					<li>{node.id} (Count: {node.count})</li>
 				{/each}
 			</ol>
