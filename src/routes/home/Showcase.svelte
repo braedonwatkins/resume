@@ -240,6 +240,13 @@
 			toggleSkillNode(value);
 		}
 	}
+
+	const handleSkillClick = (event: Event) => {
+		event.preventDefault();
+		if (!isSelectOpen) {
+			isSelectOpen = true;
+		}
+	};
 </script>
 
 <div class="flex-col flex-[2_1_0%] items-center justify-center gap-1">
@@ -310,15 +317,23 @@
 			</select>
 			building the future with
 			<select
+				on:click={handleSkillClick}
 				on:change={handleSkillSelect}
 				on:focus={() => (isSelectOpen = true)}
 				on:blur={() => (isSelectOpen = false)}
 				multiple
 				size={isSelectOpen ? Math.min(skillNodes.length, 5) : 1}
 			>
-				<option value="" selected>everything</option>
+				<option value="" selected={selectedSkillNodes.size === 0} disabled={!isSelectOpen}
+					>everything</option
+				>
 				{#each skillNodes as node}
-					<option value={node}>{node}</option>
+					<option
+						value={node}
+						class:selected={selectedSkillNodes.has(node)}
+						selected={selectedSkillNodes.has(node)}
+						disabled={!isSelectOpen}>{node}</option
+					>
 				{/each}
 			</select>.
 		</div>
@@ -368,6 +383,15 @@
 </div>
 
 <style>
+	option:disabled {
+		color: #ccc;
+		background-color: #f5f5f5;
+	}
+	option:disabled.selected {
+		color: #fff;
+		background-color: #a5a5a5;
+	}
+
 	.graph-container {
 		border: 1px solid #ccc;
 		display: inline-block;
