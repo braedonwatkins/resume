@@ -18,13 +18,15 @@
 		projectNodes
 	);
 
-	const width = 500;
-	const height = 400;
-	const nodeRadius = 5;
-	const jobX = 10;
-	const skillX = 145;
-	const bulletX = 290;
-	const projectX = 400;
+	const LAYOUT = {
+		width: 500,
+		height: 400,
+		nodeRadius: 5,
+		jobX: 10,
+		skillX: 145,
+		bulletX: 290,
+		projectX: 400
+	};
 
 	let selectedJobNode = '';
 	let selectedSkillNodes = new Set<string>();
@@ -39,31 +41,31 @@
 	$: allNodes = [
 		...jobNodes.map((id, index) => ({
 			id,
-			x: jobX,
-			y: (index + 1) * (height / (jobNodes.length + 1))
+			x: LAYOUT.jobX,
+			y: (index + 1) * (LAYOUT.height / (jobNodes.length + 1))
 		})),
 		...skillNodes.map((id, index) => ({
 			id,
-			x: skillX,
-			y: (index + 1) * (height / (skillNodes.length + 1))
+			x: LAYOUT.skillX,
+			y: (index + 1) * (LAYOUT.height / (skillNodes.length + 1))
 		})),
 		...bulletNodes.map((id, index) => ({
 			id,
-			x: bulletX,
-			y: (index + 1) * (height / (bulletNodes.length + 1))
+			x: LAYOUT.bulletX,
+			y: (index + 1) * (LAYOUT.height / (bulletNodes.length + 1))
 		})),
 		...projectNodes.map((id, index) => ({
 			id,
-			x: projectX,
-			y: (index + 1) * (height / (projectNodes.length + 1))
+			x: LAYOUT.projectX,
+			y: (index + 1) * (LAYOUT.height / (projectNodes.length + 1))
 		}))
 	];
 
 	function getNodeColor(node: Node): string {
-		if (node.x === jobX) return 'lightblue';
-		if (node.x === skillX) return 'lightgreen';
-		if (node.x === bulletX) return 'lightpink';
-		if (node.x === projectX) return 'mediumpurple';
+		if (node.x === LAYOUT.jobX) return 'lightblue';
+		if (node.x === LAYOUT.skillX) return 'lightgreen';
+		if (node.x === LAYOUT.bulletX) return 'lightpink';
+		if (node.x === LAYOUT.projectX) return 'mediumpurple';
 		return 'black'; // NOTE: using black nodes as a debug tool to say something has gone wrong
 	}
 
@@ -244,7 +246,12 @@
 	<!-- Graph and Selects -->
 	<div class="flex gap-10 justify-around">
 		<div class="graph-container" on:wheel={handleZoom}>
-			<svg {width} {height} viewBox="0 0 {width} {height}" style="transform: scale({zoomLevel});">
+			<svg
+				width={LAYOUT.width}
+				height={LAYOUT.height}
+				viewBox="0 0 {LAYOUT.width} {LAYOUT.height}"
+				style="transform: scale({zoomLevel});"
+			>
 				{#each edges as edge}
 					{@const source = allNodes.find((node) => node.id === edge.source)}
 					{@const target = allNodes.find((node) => node.id === edge.target)}
@@ -267,15 +274,15 @@
 				{#each allNodes as node}
 					<g
 						role="button"
-						tabindex={node.x === skillX ? 0 : 1}
+						tabindex={node.x === LAYOUT.skillX ? 0 : 1}
 						aria-pressed={selectedSkillNodes.has(node.id)}
-						on:click={() => node.x === skillX && toggleSkillNode(node.id)}
-						on:keydown={(event) => node.x === skillX && handleNodeKeydown(event, node.id)}
+						on:click={() => node.x === LAYOUT.skillX && toggleSkillNode(node.id)}
+						on:keydown={(event) => node.x === LAYOUT.skillX && handleNodeKeydown(event, node.id)}
 					>
 						<circle
 							cx={node.x}
 							cy={node.y}
-							r={nodeRadius}
+							r={LAYOUT.nodeRadius}
 							fill={getNodeColor(node)}
 							stroke={selectedJobNode === node.id ||
 							selectedSkillNodes.has(node.id) ||
@@ -286,7 +293,7 @@
 								: 'none'}
 							stroke-width="1"
 						/>
-						<text x={node.x} y={node.y + nodeRadius + 10} font-size="8" text-anchor="middle"
+						<text x={node.x} y={node.y + LAYOUT.nodeRadius + 10} font-size="8" text-anchor="middle"
 							>{node.id}</text
 						>
 					</g>
