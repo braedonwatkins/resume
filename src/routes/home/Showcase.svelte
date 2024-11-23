@@ -317,6 +317,7 @@
 			</select>
 			building the future with
 			<select
+				class="animate"
 				on:click={handleSkillClick}
 				on:change={handleSkillSelect}
 				on:focus={() => (isSelectOpen = true)}
@@ -383,6 +384,19 @@
 </div>
 
 <style>
+	.animate {
+		border: solid 2px;
+		border-color: red;
+		animation: 2s infinite alternate slide-in;
+	}
+	@keyframes slide-in {
+		from {
+			border-color: red;
+		}
+		to {
+			border-color: blue;
+		}
+	}
 	option:disabled {
 		color: #ccc;
 		background-color: #f5f5f5;
