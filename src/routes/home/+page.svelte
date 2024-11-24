@@ -4,6 +4,7 @@
 	import Showcase from './Showcase.svelte';
 	import ResumeBuilder from './ResumeBuilder.svelte';
 	import Profile from './Profile.svelte';
+	import ScrollSelect from './ScrollSelect.svelte';
 	onMount(() => {
 		debugOutline();
 	});
@@ -16,6 +17,7 @@
 	</div>
 
 	<div class="right-main flex flex-[2_1_0%] flex-col items-center justify-center">
-		<Profile />
+		<!-- <Profile /> -->
+		<ScrollSelect />
 	</div>
 </main>
