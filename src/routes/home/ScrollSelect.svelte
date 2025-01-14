@@ -31,32 +31,20 @@
 		{/if}
 	</div>
 
-	{#if isOpen}
-		<div class="options-container">
-			{#each options as option, i}
-				<div
-					class="option {selected.includes(option) ? 'selected' : ''}"
-					on:click={() => toggleOption(option)}
-					style="transform: 
-                        rotateX({(i - midpoint) * 20}deg)
-                        translateZ({Math.abs(i - midpoint) * 10}px)
-                        translateY({Math.min(i - 5, i - 3) * 10}px)
-                    "
-				>
-					<!-- <div -->
-					<!-- 	class="option {selected.includes(option) ? 'selected' : ''}" -->
-					<!-- 	on:click={() => toggleOption(option)} -->
-					<!-- 	style=" -->
-					<!-- transform: rotateX({-i * 10}deg) translateZ({i * 10}px) translateY({i * 4}px); -->
-					<!-- opacity: {1 - i * 0.1}; -->
-					<!-- " -->
-					<!-- > -->
-					{option}
-					{i}
-				</div>
-			{/each}
-		</div>
-	{/if}
+	<div class="scene">
+		{#if isOpen}
+			<div class="options-container">
+				{#each options as option}
+					<div
+						class="option {selected.includes(option) ? 'selected' : ''}"
+						on:click={() => toggleOption(option)}
+					>
+						{option}
+					</div>
+				{/each}
+			</div>
+		{/if}
+	</div>
 </div>
 
 <style>
@@ -76,32 +64,48 @@
 		background: white;
 	}
 
-	.options-container {
-		max-height: 200px;
-		overflow-y: auto;
-
-		/* position: absolute; */
-		/* width: 100%; */
-		/* margin-top: 4px; */
-		/* transform-style: preserve-3d; */
-		/* transform-origin: top center; */
-	}
-
-	/* .option { */
-	/* 	padding: 12px; */
-	/* 	background: white; */
-	/* 	border: 1px solid #eee; */
-	/* 	cursor: pointer; */
-	/* 	backface-visibility: visible; */
-	/* 	transform-origin: center; */
-	/* 	position: absolute; */
-	/* 	width: 100%; */
-	/* 	box-sizing: border-box; */
-	/* } */
-
-	.option {
+	.scene {
+		width: 210px;
+		height: 140px;
 		position: relative;
-		overflow-y: scroll;
+		perspective: 1000px;
+	}
+	.options-container {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		transform-style: preserve-3d;
+	}
+	.option {
+		position: absolute;
+		width: 190px;
+		height: 120px;
+		left: 10px;
+		top: 10px;
+	}
+	.option:nth-child(1) {
+		transform: rotateX(0deg) translateZ(288px);
+	}
+	.option:nth-child(2) {
+		transform: rotateX(45deg) translateZ(288px);
+	}
+	.option:nth-child(3) {
+		transform: rotateX(90deg) translateZ(288px);
+	}
+	.option:nth-child(4) {
+		transform: rotateX(135deg) translateZ(288px);
+	}
+	.option:nth-child(5) {
+		transform: rotateX(180deg) translateZ(288px);
+	}
+	.option:nth-child(6) {
+		transform: rotateX(225deg) translateZ(288px);
+	}
+	.option:nth-child(7) {
+		transform: rotateX(270deg) translateZ(288px);
+	}
+	.option:nth-child(8) {
+		transform: rotateX(315deg) translateZ(288px);
 	}
 
 	.option:hover {
